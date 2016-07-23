@@ -3,6 +3,7 @@ package com.mauriciotogneri.jsonschema.test;
 import com.mauriciotogneri.jsonschema.properties.Enums;
 import com.mauriciotogneri.jsonschema.schemas.SchemaBoolean;
 import com.mauriciotogneri.jsonschema.schemas.SchemaInteger;
+import com.mauriciotogneri.jsonschema.schemas.SchemaNumber;
 import com.mauriciotogneri.jsonschema.schemas.SchemaString;
 import com.mauriciotogneri.jsonschema.types.FormatType;
 
@@ -48,5 +49,20 @@ public class TestSample
                 .exclusiveMaximum(false);
 
         System.out.println(schemaInteger);
+    }
+
+    @Test
+    public void tesNumber() throws Exception
+    {
+        SchemaNumber schemaNumber = new SchemaNumber()
+                .title("Super number title")
+                .description("Amazing number description")
+                .multipleOf(2.5)
+                .minimum(0.1)
+                .maximum(100.0)
+                .exclusiveMinimum(false)
+                .exclusiveMaximum(true);
+
+        System.out.println(schemaNumber);
     }
 }
