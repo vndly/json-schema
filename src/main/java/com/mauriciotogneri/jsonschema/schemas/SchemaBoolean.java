@@ -1,5 +1,6 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
+import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.properties.Description;
 import com.mauriciotogneri.jsonschema.properties.Properties;
 import com.mauriciotogneri.jsonschema.properties.Title;
@@ -8,23 +9,28 @@ import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 
 public class SchemaBoolean extends Schema
 {
-    private SchemaBoolean(Properties properties)
+    private SchemaBoolean(Definitions definitions, Properties properties)
     {
-        super(properties);
+        super(definitions, properties);
     }
 
     public SchemaBoolean()
     {
-        super(new Properties().add(new Type(PrimitiveType.BOOLEAN)));
+        super(new Definitions(), new Properties().add(new Type(PrimitiveType.BOOLEAN)));
+    }
+
+    public SchemaBoolean definition(String name, Schema schema)
+    {
+        return new SchemaBoolean(definitions.add(name, schema), properties);
     }
 
     public SchemaBoolean title(String title)
     {
-        return new SchemaBoolean(properties.add(new Title(title)));
+        return new SchemaBoolean(definitions, properties.add(new Title(title)));
     }
 
     public SchemaBoolean description(String description)
     {
-        return new SchemaBoolean(properties.add(new Description(description)));
+        return new SchemaBoolean(definitions, properties.add(new Description(description)));
     }
 }

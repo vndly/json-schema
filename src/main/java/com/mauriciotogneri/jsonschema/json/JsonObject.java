@@ -43,6 +43,11 @@ public class JsonObject implements JsonValue
         return new JsonObject(fields.put(name, new JsonValueBoolean(value)));
     }
 
+    public JsonObject add(String name, JsonObject value)
+    {
+        return new JsonObject(fields.put(name, value));
+    }
+
     @Override
     public String toString()
     {

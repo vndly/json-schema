@@ -1,5 +1,6 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
+import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.definitions.PositiveNumber;
 import com.mauriciotogneri.jsonschema.properties.Description;
 import com.mauriciotogneri.jsonschema.properties.ExclusiveMaximum;
@@ -18,48 +19,53 @@ public class SchemaInteger extends Schema
     // TODO: cannot set exclusiveMaximum without setting maximum
     // TODO: minimum cannot be bigger than maximum
 
-    private SchemaInteger(Properties properties)
+    private SchemaInteger(Definitions definitions, Properties properties)
     {
-        super(properties);
+        super(definitions, properties);
     }
 
     public SchemaInteger()
     {
-        super(new Properties().add(new Type(PrimitiveType.INTEGER)));
+        super(new Definitions(), new Properties().add(new Type(PrimitiveType.INTEGER)));
+    }
+
+    public SchemaInteger definition(String name, Schema schema)
+    {
+        return new SchemaInteger(definitions.add(name, schema), properties);
     }
 
     public SchemaInteger title(String title)
     {
-        return new SchemaInteger(properties.add(new Title(title)));
+        return new SchemaInteger(definitions, properties.add(new Title(title)));
     }
 
     public SchemaInteger description(String description)
     {
-        return new SchemaInteger(properties.add(new Description(description)));
+        return new SchemaInteger(definitions, properties.add(new Description(description)));
     }
 
     public SchemaInteger multipleOf(long value)
     {
-        return new SchemaInteger(properties.add(new MultipleOf(new PositiveNumber(value))));
+        return new SchemaInteger(definitions, properties.add(new MultipleOf(new PositiveNumber(value))));
     }
 
     public SchemaInteger minimum(long value)
     {
-        return new SchemaInteger(properties.add(new Minimum<>(value)));
+        return new SchemaInteger(definitions, properties.add(new Minimum<>(value)));
     }
 
     public SchemaInteger maximum(long value)
     {
-        return new SchemaInteger(properties.add(new Maximum<>(value)));
+        return new SchemaInteger(definitions, properties.add(new Maximum<>(value)));
     }
 
     public SchemaInteger exclusiveMinimum(boolean value)
     {
-        return new SchemaInteger(properties.add(new ExclusiveMinimum(value)));
+        return new SchemaInteger(definitions, properties.add(new ExclusiveMinimum(value)));
     }
 
     public SchemaInteger exclusiveMaximum(boolean value)
     {
-        return new SchemaInteger(properties.add(new ExclusiveMaximum(value)));
+        return new SchemaInteger(definitions, properties.add(new ExclusiveMaximum(value)));
     }
 }

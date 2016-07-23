@@ -1,5 +1,6 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
+import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.properties.Description;
 import com.mauriciotogneri.jsonschema.properties.Properties;
 import com.mauriciotogneri.jsonschema.properties.Title;
@@ -21,23 +22,28 @@ public class SchemaObject extends Schema
     // TODO: minProperties cannot be bigger than maxProperties
     // TODO: dependencies
 
-    private SchemaObject(Properties properties)
+    private SchemaObject(Definitions definitions, Properties properties)
     {
-        super(properties);
+        super(definitions, properties);
     }
 
     public SchemaObject()
     {
-        super(new Properties().add(new Type(PrimitiveType.OBJECT)));
+        super(new Definitions(), new Properties().add(new Type(PrimitiveType.OBJECT)));
+    }
+
+    public SchemaObject definition(String name, Schema schema)
+    {
+        return new SchemaObject(definitions.add(name, schema), properties);
     }
 
     public SchemaObject title(String title)
     {
-        return new SchemaObject(properties.add(new Title(title)));
+        return new SchemaObject(definitions, properties.add(new Title(title)));
     }
 
     public SchemaObject description(String description)
     {
-        return new SchemaObject(properties.add(new Description(description)));
+        return new SchemaObject(definitions, properties.add(new Description(description)));
     }
 }

@@ -23,6 +23,11 @@ public class Properties implements Iterable<Property>
         return new Properties(properties.put(property.getClass(), property));
     }
 
+    public boolean isEmpty()
+    {
+        return properties.isEmpty();
+    }
+
     @Override
     public Iterator<Property> iterator()
     {

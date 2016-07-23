@@ -1,5 +1,6 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
+import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.properties.Description;
 import com.mauriciotogneri.jsonschema.properties.Properties;
 import com.mauriciotogneri.jsonschema.properties.Title;
@@ -16,23 +17,28 @@ public class SchemaArray extends Schema
 
     // TODO: minItems cannot be bigger than maxItems
 
-    private SchemaArray(Properties properties)
+    private SchemaArray(Definitions definitions, Properties properties)
     {
-        super(properties);
+        super(definitions, properties);
     }
 
     public SchemaArray()
     {
-        super(new Properties().add(new Type(PrimitiveType.ARRAY)));
+        super(new Definitions(), new Properties().add(new Type(PrimitiveType.ARRAY)));
+    }
+
+    public SchemaArray definition(String name, Schema schema)
+    {
+        return new SchemaArray(definitions.add(name, schema), properties);
     }
 
     public SchemaArray title(String title)
     {
-        return new SchemaArray(properties.add(new Title(title)));
+        return new SchemaArray(definitions, properties.add(new Title(title)));
     }
 
     public SchemaArray description(String description)
     {
-        return new SchemaArray(properties.add(new Description(description)));
+        return new SchemaArray(definitions, properties.add(new Description(description)));
     }
 }

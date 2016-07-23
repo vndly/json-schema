@@ -1,5 +1,6 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
+import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.definitions.PositiveNumber;
 import com.mauriciotogneri.jsonschema.properties.Description;
 import com.mauriciotogneri.jsonschema.properties.ExclusiveMaximum;
@@ -18,48 +19,53 @@ public class SchemaNumber extends Schema
     // TODO: cannot set exclusiveMaximum without setting maximum
     // TODO: minimum cannot be bigger than maximum
 
-    private SchemaNumber(Properties properties)
+    private SchemaNumber(Definitions definitions, Properties properties)
     {
-        super(properties);
+        super(definitions, properties);
     }
 
     public SchemaNumber()
     {
-        super(new Properties().add(new Type(PrimitiveType.NUMBER)));
+        super(new Definitions(), new Properties().add(new Type(PrimitiveType.NUMBER)));
+    }
+
+    public SchemaNumber definition(String name, Schema schema)
+    {
+        return new SchemaNumber(definitions.add(name, schema), properties);
     }
 
     public SchemaNumber title(String title)
     {
-        return new SchemaNumber(properties.add(new Title(title)));
+        return new SchemaNumber(definitions, properties.add(new Title(title)));
     }
 
     public SchemaNumber description(String description)
     {
-        return new SchemaNumber(properties.add(new Description(description)));
+        return new SchemaNumber(definitions, properties.add(new Description(description)));
     }
 
     public SchemaNumber multipleOf(double value)
     {
-        return new SchemaNumber(properties.add(new MultipleOf(new PositiveNumber(value))));
+        return new SchemaNumber(definitions, properties.add(new MultipleOf(new PositiveNumber(value))));
     }
 
     public SchemaNumber minimum(double value)
     {
-        return new SchemaNumber(properties.add(new Minimum<>(value)));
+        return new SchemaNumber(definitions, properties.add(new Minimum<>(value)));
     }
 
     public SchemaNumber maximum(double value)
     {
-        return new SchemaNumber(properties.add(new Maximum<>(value)));
+        return new SchemaNumber(definitions, properties.add(new Maximum<>(value)));
     }
 
     public SchemaNumber exclusiveMinimum(boolean value)
     {
-        return new SchemaNumber(properties.add(new ExclusiveMinimum(value)));
+        return new SchemaNumber(definitions, properties.add(new ExclusiveMinimum(value)));
     }
 
     public SchemaNumber exclusiveMaximum(boolean value)
     {
-        return new SchemaNumber(properties.add(new ExclusiveMaximum(value)));
+        return new SchemaNumber(definitions, properties.add(new ExclusiveMaximum(value)));
     }
 }

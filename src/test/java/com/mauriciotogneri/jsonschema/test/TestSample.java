@@ -23,7 +23,8 @@ public class TestSample
                 .maxLength(10)
                 .pattern("*")
                 .format(FormatType.DATE_TIME)
-                .enums(new Enums().withString("A").withBoolean(true).withNumber(123));
+                .enums(new Enums().withString("A").withBoolean(true).withNumber(123))
+                .definition("user_id", new SchemaString());
 
         System.out.println(schemaString);
     }

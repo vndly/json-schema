@@ -35,6 +35,11 @@ public class ImmutableMap<K, V>
         return new ImmutableMap<>(newMap);
     }
 
+    public boolean isEmpty()
+    {
+        return map.isEmpty();
+    }
+
     public ImmutableList<V> values()
     {
         return new ImmutableList<>(new ArrayList<>(map.values()));
