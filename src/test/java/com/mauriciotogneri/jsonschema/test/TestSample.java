@@ -1,9 +1,11 @@
 package com.mauriciotogneri.jsonschema.test;
 
 import com.mauriciotogneri.jsonschema.properties.Enums;
+import com.mauriciotogneri.jsonschema.schemas.SchemaArray;
 import com.mauriciotogneri.jsonschema.schemas.SchemaBoolean;
 import com.mauriciotogneri.jsonschema.schemas.SchemaInteger;
 import com.mauriciotogneri.jsonschema.schemas.SchemaNumber;
+import com.mauriciotogneri.jsonschema.schemas.SchemaObject;
 import com.mauriciotogneri.jsonschema.schemas.SchemaString;
 import com.mauriciotogneri.jsonschema.types.FormatType;
 
@@ -64,5 +66,25 @@ public class TestSample
                 .exclusiveMaximum(true);
 
         System.out.println(schemaNumber);
+    }
+
+    @Test
+    public void testObject() throws Exception
+    {
+        SchemaObject schemaObject = new SchemaObject()
+                .title("Super object title")
+                .description("Amazing object description");
+
+        System.out.println(schemaObject);
+    }
+
+    @Test
+    public void testArray() throws Exception
+    {
+        SchemaArray schemaArray = new SchemaArray()
+                .title("Super array title")
+                .description("Amazing array description");
+
+        System.out.println(schemaArray);
     }
 }

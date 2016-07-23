@@ -18,12 +18,6 @@ public class Schema
         this.properties = properties;
     }
 
-    // TODO: REMOVE
-    protected Schema()
-    {
-        this.properties = new Properties();
-    }
-
     @Override
     public String toString()
     {

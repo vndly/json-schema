@@ -1,37 +1,43 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
-import com.mauriciotogneri.jsonschema.definitions.PositiveNumber;
-import com.mauriciotogneri.jsonschema.definitions.Regex;
-import com.mauriciotogneri.jsonschema.definitions.StringArray;
-import com.mauriciotogneri.jsonschema.structures.ImmutableMap;
+import com.mauriciotogneri.jsonschema.properties.Description;
+import com.mauriciotogneri.jsonschema.properties.Properties;
+import com.mauriciotogneri.jsonschema.properties.Title;
+import com.mauriciotogneri.jsonschema.properties.Type;
 import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 
 public class SchemaObject extends Schema
 {
-    private final PrimitiveType type;
-    private final ImmutableMap<String, Schema> properties;
-    private final ImmutableMap<Regex, Schema> patternProperties;
-    private final Boolean additionalPropertiesFlag;
-    private final Schema additionalPropertiesProperty;
-    private final StringArray required;
-    private final PositiveNumber minProperties;
-    private final PositiveNumber maxProperties;
-    private final Object dependencies;
+    //    private final ImmutableMap<String, Schema> properties;
+    //    private final ImmutableMap<Regex, Schema> patternProperties;
+    //    private final Boolean additionalPropertiesFlag;
+    //    private final Schema additionalPropertiesProperty;
+    //    private final StringArray required;
+    //    private final PositiveNumber minProperties;
+    //    private final PositiveNumber maxProperties;
+    //    private final Object dependencies;
 
     // TODO: additionalPropertiesFlag and additionalPropertiesProperty are mutually exclusive
     // TODO: minProperties cannot be bigger than maxProperties
     // TODO: dependencies
 
-    public SchemaObject(ImmutableMap<String, Schema> properties, ImmutableMap<Regex, Schema> patternProperties, Boolean additionalPropertiesFlag, Schema additionalPropertiesProperty, StringArray required, PositiveNumber minProperties, PositiveNumber maxProperties, Object dependencies)
+    private SchemaObject(Properties properties)
     {
-        this.type = PrimitiveType.OBJECT;
-        this.properties = properties;
-        this.patternProperties = patternProperties;
-        this.additionalPropertiesFlag = additionalPropertiesFlag;
-        this.additionalPropertiesProperty = additionalPropertiesProperty;
-        this.required = required;
-        this.minProperties = minProperties;
-        this.maxProperties = maxProperties;
-        this.dependencies = dependencies;
+        super(properties);
+    }
+
+    public SchemaObject()
+    {
+        super(new Properties().add(new Type(PrimitiveType.OBJECT)));
+    }
+
+    public SchemaObject title(String title)
+    {
+        return new SchemaObject(properties.add(new Title(title)));
+    }
+
+    public SchemaObject description(String description)
+    {
+        return new SchemaObject(properties.add(new Description(description)));
     }
 }
