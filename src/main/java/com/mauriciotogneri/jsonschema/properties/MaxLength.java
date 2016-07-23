@@ -1,14 +1,14 @@
 package com.mauriciotogneri.jsonschema.properties;
 
-import com.mauriciotogneri.jsonschema.definitions.PositiveInteger;
+import com.mauriciotogneri.jsonschema.definitions.PositiveNumber;
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueNumber;
 
 public class MaxLength implements Property
 {
-    private final PositiveInteger value;
+    private final PositiveNumber value;
 
-    public MaxLength(PositiveInteger value)
+    public MaxLength(PositiveNumber value)
     {
         this.value = value;
     }

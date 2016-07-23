@@ -1,6 +1,6 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
-import com.mauriciotogneri.jsonschema.definitions.PositiveInteger;
+import com.mauriciotogneri.jsonschema.definitions.PositiveNumber;
 import com.mauriciotogneri.jsonschema.definitions.Regex;
 import com.mauriciotogneri.jsonschema.definitions.StringArray;
 import com.mauriciotogneri.jsonschema.structures.ImmutableMap;
@@ -14,15 +14,15 @@ public class SchemaObject extends Schema
     private final Boolean additionalPropertiesFlag;
     private final Schema additionalPropertiesProperty;
     private final StringArray required;
-    private final PositiveInteger minProperties;
-    private final PositiveInteger maxProperties;
+    private final PositiveNumber minProperties;
+    private final PositiveNumber maxProperties;
     private final Object dependencies;
 
     // TODO: additionalPropertiesFlag and additionalPropertiesProperty are mutually exclusive
     // TODO: minProperties cannot be bigger than maxProperties
     // TODO: dependencies
 
-    public SchemaObject(ImmutableMap<String, Schema> properties, ImmutableMap<Regex, Schema> patternProperties, Boolean additionalPropertiesFlag, Schema additionalPropertiesProperty, StringArray required, PositiveInteger minProperties, PositiveInteger maxProperties, Object dependencies)
+    public SchemaObject(ImmutableMap<String, Schema> properties, ImmutableMap<Regex, Schema> patternProperties, Boolean additionalPropertiesFlag, Schema additionalPropertiesProperty, StringArray required, PositiveNumber minProperties, PositiveNumber maxProperties, Object dependencies)
     {
         this.type = PrimitiveType.OBJECT;
         this.properties = properties;

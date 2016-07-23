@@ -1,6 +1,6 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
-import com.mauriciotogneri.jsonschema.definitions.PositiveInteger;
+import com.mauriciotogneri.jsonschema.definitions.PositiveNumber;
 import com.mauriciotogneri.jsonschema.definitions.Regex;
 import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 import com.mauriciotogneri.jsonschema.types.FormatType;
@@ -36,14 +36,14 @@ public class SchemaString extends Schema
         return new SchemaString(properties.add(new Description(description)));
     }
 
-    public SchemaString minLength(int minLength)
+    public SchemaString minLength(long minLength)
     {
-        return new SchemaString(properties.add(new MinLength(new PositiveInteger(minLength))));
+        return new SchemaString(properties.add(new MinLength(new PositiveNumber(minLength))));
     }
 
-    public SchemaString maxLength(int maxLength)
+    public SchemaString maxLength(long maxLength)
     {
-        return new SchemaString(properties.add(new MaxLength(new PositiveInteger(maxLength))));
+        return new SchemaString(properties.add(new MaxLength(new PositiveNumber(maxLength))));
     }
 
     public SchemaString pattern(String pattern)

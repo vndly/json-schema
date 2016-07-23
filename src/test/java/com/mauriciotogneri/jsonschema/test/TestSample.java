@@ -2,8 +2,9 @@ package com.mauriciotogneri.jsonschema.test;
 
 import com.mauriciotogneri.jsonschema.properties.Enums;
 import com.mauriciotogneri.jsonschema.schemas.SchemaBoolean;
-import com.mauriciotogneri.jsonschema.types.FormatType;
+import com.mauriciotogneri.jsonschema.schemas.SchemaInteger;
 import com.mauriciotogneri.jsonschema.schemas.SchemaString;
+import com.mauriciotogneri.jsonschema.types.FormatType;
 
 import org.junit.Test;
 
@@ -32,5 +33,20 @@ public class TestSample
                 .description("Amazing boolean description");
 
         System.out.println(schemaBoolean);
+    }
+
+    @Test
+    public void tesInteger() throws Exception
+    {
+        SchemaInteger schemaInteger = new SchemaInteger()
+                .title("Super integer title")
+                .description("Amazing integer description")
+                .multipleOf(2)
+                .minimum(0)
+                .maximum(100)
+                .exclusiveMinimum(true)
+                .exclusiveMaximum(false);
+
+        System.out.println(schemaInteger);
     }
 }

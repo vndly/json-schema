@@ -1,22 +1,29 @@
 package com.mauriciotogneri.jsonschema.json;
 
+import com.mauriciotogneri.jsonschema.definitions.NumberWrapper;
+
 public class JsonValueNumber implements JsonValue
 {
-    private final Number value;
+    private final NumberWrapper value;
 
-    public JsonValueNumber(long value)
+    public JsonValueNumber(NumberWrapper value)
     {
         this.value = value;
     }
 
+    public JsonValueNumber(long value)
+    {
+        this(new NumberWrapper(value));
+    }
+
     public JsonValueNumber(double value)
     {
-        this.value = value;
+        this(new NumberWrapper(value));
     }
 
     @Override
     public String toString()
     {
-        return value.toString(); // TODO: if number is double but *.0 then render as integer
+        return value.isInteger() ? String.valueOf(value.intValue()) : String.valueOf(value.doubleValue());
     }
 }
