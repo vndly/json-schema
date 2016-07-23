@@ -1,8 +1,8 @@
-package com.mauriciotogneri.jsonschema.properties;
+package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
 
-public interface Property
+public interface Attribute
 {
     JsonField json();
 }

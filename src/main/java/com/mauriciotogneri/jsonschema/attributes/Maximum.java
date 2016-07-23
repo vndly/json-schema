@@ -1,9 +1,9 @@
-package com.mauriciotogneri.jsonschema.properties;
+package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueNumber;
 
-public class Maximum<N extends Number> implements Property
+public class Maximum<N extends Number> implements Attribute
 {
     private final N value;
 

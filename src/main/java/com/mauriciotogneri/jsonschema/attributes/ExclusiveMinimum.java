@@ -1,9 +1,9 @@
-package com.mauriciotogneri.jsonschema.properties;
+package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueBoolean;
 
-public class ExclusiveMinimum implements Property
+public class ExclusiveMinimum implements Attribute
 {
     private final Boolean value;
 

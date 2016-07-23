@@ -1,7 +1,7 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
+import com.mauriciotogneri.jsonschema.attributes.Attributes;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
-import com.mauriciotogneri.jsonschema.properties.Properties;
 
 public class SchemaAny extends Schema
 {
@@ -9,6 +9,6 @@ public class SchemaAny extends Schema
 
     public SchemaAny()
     {
-        super(new Definitions(), new Properties());
+        super(new Definitions(), new Attributes());
     }
 }

@@ -1,10 +1,10 @@
-package com.mauriciotogneri.jsonschema.properties;
+package com.mauriciotogneri.jsonschema.attributes;
 
-import com.mauriciotogneri.jsonschema.definitions.PositiveNumber;
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueNumber;
+import com.mauriciotogneri.jsonschema.support.PositiveNumber;
 
-public class MultipleOf implements Property
+public class MultipleOf implements Attribute
 {
     private final PositiveNumber value;
 

@@ -1,4 +1,4 @@
-package com.mauriciotogneri.jsonschema.definitions;
+package com.mauriciotogneri.jsonschema.support;
 
 import com.mauriciotogneri.jsonschema.structures.ImmutableList;
 

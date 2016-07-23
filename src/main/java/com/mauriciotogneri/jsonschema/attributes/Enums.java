@@ -1,4 +1,4 @@
-package com.mauriciotogneri.jsonschema.properties;
+package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonArray;
 import com.mauriciotogneri.jsonschema.json.JsonField;
@@ -8,7 +8,7 @@ import com.mauriciotogneri.jsonschema.json.JsonValueNumber;
 import com.mauriciotogneri.jsonschema.json.JsonValueString;
 import com.mauriciotogneri.jsonschema.structures.ImmutableList;
 
-public class Enums implements Property
+public class Enums implements Attribute
 {
     private final ImmutableList<JsonValue> values;
 

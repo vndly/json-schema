@@ -1,10 +1,10 @@
-package com.mauriciotogneri.jsonschema.properties;
+package com.mauriciotogneri.jsonschema.attributes;
 
-import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueString;
+import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 
-public class Type implements Property
+public class Type implements Attribute
 {
     private final PrimitiveType value;
 

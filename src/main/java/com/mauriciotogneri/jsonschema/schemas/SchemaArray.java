@@ -1,10 +1,11 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
+import com.mauriciotogneri.jsonschema.attributes.Attributes;
+import com.mauriciotogneri.jsonschema.attributes.Description;
+import com.mauriciotogneri.jsonschema.attributes.SchemaVersion;
+import com.mauriciotogneri.jsonschema.attributes.Title;
+import com.mauriciotogneri.jsonschema.attributes.Type;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
-import com.mauriciotogneri.jsonschema.properties.Description;
-import com.mauriciotogneri.jsonschema.properties.Properties;
-import com.mauriciotogneri.jsonschema.properties.Title;
-import com.mauriciotogneri.jsonschema.properties.Type;
 import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 
 public class SchemaArray extends Schema
@@ -17,28 +18,33 @@ public class SchemaArray extends Schema
 
     // TODO: minItems cannot be bigger than maxItems
 
-    private SchemaArray(Definitions definitions, Properties properties)
+    private SchemaArray(Definitions definitions, Attributes attributes)
     {
-        super(definitions, properties);
+        super(definitions, attributes);
     }
 
     public SchemaArray()
     {
-        super(new Definitions(), new Properties().add(new Type(PrimitiveType.ARRAY)));
+        super(new Definitions(), new Attributes().add(new Type(PrimitiveType.ARRAY)));
+    }
+
+    public SchemaArray root()
+    {
+        return new SchemaArray(definitions, attributes.add(new SchemaVersion()));
     }
 
     public SchemaArray definition(String name, Schema schema)
     {
-        return new SchemaArray(definitions.add(name, schema), properties);
+        return new SchemaArray(definitions.add(name, schema), attributes);
     }
 
     public SchemaArray title(String title)
     {
-        return new SchemaArray(definitions, properties.add(new Title(title)));
+        return new SchemaArray(definitions, attributes.add(new Title(title)));
     }
 
     public SchemaArray description(String description)
     {
-        return new SchemaArray(definitions, properties.add(new Description(description)));
+        return new SchemaArray(definitions, attributes.add(new Description(description)));
     }
 }

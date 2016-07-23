@@ -1,6 +1,6 @@
 package com.mauriciotogneri.jsonschema.test;
 
-import com.mauriciotogneri.jsonschema.properties.Enums;
+import com.mauriciotogneri.jsonschema.attributes.Enums;
 import com.mauriciotogneri.jsonschema.schemas.SchemaArray;
 import com.mauriciotogneri.jsonschema.schemas.SchemaBoolean;
 import com.mauriciotogneri.jsonschema.schemas.SchemaInteger;
@@ -17,14 +17,14 @@ public class TestSample
     public void testString() throws Exception
     {
         SchemaString schemaString = new SchemaString()
+                .root()
                 .title("Super string title")
                 .description("Amazing string description")
                 .minLength(1)
                 .maxLength(10)
                 .pattern("*")
                 .format(FormatType.DATE_TIME)
-                .enums(new Enums().withString("A").withBoolean(true).withNumber(123))
-                .definition("user_id", new SchemaString());
+                .enums(new Enums().withString("A").withBoolean(true).withNumber(123));
 
         System.out.println(schemaString);
     }
@@ -33,6 +33,7 @@ public class TestSample
     public void testBoolean() throws Exception
     {
         SchemaBoolean schemaBoolean = new SchemaBoolean()
+                .root()
                 .title("Super boolean title")
                 .description("Amazing boolean description");
 
@@ -43,6 +44,7 @@ public class TestSample
     public void tesInteger() throws Exception
     {
         SchemaInteger schemaInteger = new SchemaInteger()
+                .root()
                 .title("Super integer title")
                 .description("Amazing integer description")
                 .multipleOf(2)
@@ -58,6 +60,7 @@ public class TestSample
     public void tesNumber() throws Exception
     {
         SchemaNumber schemaNumber = new SchemaNumber()
+                .root()
                 .title("Super number title")
                 .description("Amazing number description")
                 .multipleOf(2.5)
@@ -73,8 +76,10 @@ public class TestSample
     public void testObject() throws Exception
     {
         SchemaObject schemaObject = new SchemaObject()
+                .root()
                 .title("Super object title")
-                .description("Amazing object description");
+                .description("Amazing object description")
+                .definition("user_id", new SchemaString().pattern("[0-9]+"));
 
         System.out.println(schemaObject);
     }
@@ -83,6 +88,7 @@ public class TestSample
     public void testArray() throws Exception
     {
         SchemaArray schemaArray = new SchemaArray()
+                .root()
                 .title("Super array title")
                 .description("Amazing array description");
 

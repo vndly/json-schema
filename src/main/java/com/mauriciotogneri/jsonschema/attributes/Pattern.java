@@ -1,10 +1,10 @@
-package com.mauriciotogneri.jsonschema.properties;
+package com.mauriciotogneri.jsonschema.attributes;
 
-import com.mauriciotogneri.jsonschema.definitions.Regex;
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueString;
+import com.mauriciotogneri.jsonschema.support.Regex;
 
-public class Pattern implements Property
+public class Pattern implements Attribute
 {
     private final Regex value;
 

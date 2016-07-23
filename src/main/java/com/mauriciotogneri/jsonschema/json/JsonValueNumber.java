@@ -1,6 +1,6 @@
 package com.mauriciotogneri.jsonschema.json;
 
-import com.mauriciotogneri.jsonschema.definitions.NumberWrapper;
+import com.mauriciotogneri.jsonschema.support.NumberWrapper;
 
 public class JsonValueNumber implements JsonValue
 {

@@ -1,9 +1,9 @@
-package com.mauriciotogneri.jsonschema.properties;
+package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueString;
 
-public class Title implements Property
+public class Title implements Attribute
 {
     private final String value;
 
