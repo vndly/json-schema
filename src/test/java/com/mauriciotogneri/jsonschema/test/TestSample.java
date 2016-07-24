@@ -1,16 +1,19 @@
 package com.mauriciotogneri.jsonschema.test;
 
 import com.mauriciotogneri.jsonschema.attributes.Enums;
-import com.mauriciotogneri.jsonschema.schemas.SchemaAny;
-import com.mauriciotogneri.jsonschema.schemas.SchemaArray;
-import com.mauriciotogneri.jsonschema.schemas.SchemaBoolean;
-import com.mauriciotogneri.jsonschema.schemas.SchemaInteger;
-import com.mauriciotogneri.jsonschema.schemas.SchemaNumber;
-import com.mauriciotogneri.jsonschema.schemas.SchemaObject;
-import com.mauriciotogneri.jsonschema.schemas.SchemaString;
+import com.mauriciotogneri.jsonschema.definitions.Definition;
+import com.mauriciotogneri.jsonschema.schemas.AnySchema;
+import com.mauriciotogneri.jsonschema.schemas.ArraySchema;
+import com.mauriciotogneri.jsonschema.schemas.BooleanSchema;
+import com.mauriciotogneri.jsonschema.schemas.IntegerSchema;
+import com.mauriciotogneri.jsonschema.schemas.NumberSchema;
+import com.mauriciotogneri.jsonschema.schemas.ObjectSchema;
+import com.mauriciotogneri.jsonschema.schemas.RootSchema;
+import com.mauriciotogneri.jsonschema.schemas.StringSchema;
 import com.mauriciotogneri.jsonschema.types.FormatType;
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 public class TestSample
@@ -18,90 +21,91 @@ public class TestSample
     @Test
     public void testString() throws Exception
     {
-        SchemaString schemaString = new SchemaString()
-                .root()
-                .title("Super string title")
-                .description("Amazing string description")
-                .minLength(1)
-                .maxLength(10)
-                .pattern("*")
-                .format(FormatType.DATE_TIME)
-                .enums(new Enums().withString("A").withBoolean(true).withNumber(123));
+        RootSchema root = new RootSchema(
+                new StringSchema()
+                        .title("Super string title")
+                        .description("Amazing string description")
+                        .minLength(1)
+                        .maxLength(10)
+                        .pattern("*")
+                        .format(FormatType.DATE_TIME)
+                        .enums(new Enums().withString("A").withBoolean(true).withNumber(123)));
 
-        System.out.println(schemaString);
+        assertEquals(root.toString(), "{\"enums\":[\"A\",true,123],\"$schema\":\"http://json-schema.org/schema#\",\"minLength\":1,\"format\":\"date-time\",\"pattern\":\"*\",\"description\":\"Amazing string description\",\"type\":\"string\",\"title\":\"Super string title\",\"maxLength\":10}");
     }
 
     @Test
     public void testBoolean() throws Exception
     {
-        SchemaBoolean schemaBoolean = new SchemaBoolean()
-                .root()
-                .title("Super boolean title")
-                .description("Amazing boolean description");
+        RootSchema root = new RootSchema(
+                new BooleanSchema()
+                        .title("Super boolean title")
+                        .description("Amazing boolean description"));
 
-        System.out.println(schemaBoolean);
+        assertEquals(root.toString(), "{\"$schema\":\"http://json-schema.org/schema#\",\"description\":\"Amazing boolean description\",\"type\":\"boolean\",\"title\":\"Super boolean title\"}");
     }
 
     @Test
     public void tesInteger() throws Exception
     {
-        SchemaInteger schemaInteger = new SchemaInteger()
-                .root()
-                .title("Super integer title")
-                .description("Amazing integer description")
-                .multipleOf(2)
-                .minimum(0)
-                .maximum(100)
-                .exclusiveMinimum(true)
-                .exclusiveMaximum(false);
+        RootSchema root = new RootSchema(
+                new IntegerSchema()
+                        .title("Super integer title")
+                        .description("Amazing integer description")
+                        .multipleOf(2)
+                        .minimum(0)
+                        .maximum(100)
+                        .exclusiveMinimum(true)
+                        .exclusiveMaximum(false));
 
-        System.out.println(schemaInteger);
+        assertEquals(root.toString(), "{\"multipleOf\":2,\"$schema\":\"http://json-schema.org/schema#\",\"description\":\"Amazing integer description\",\"maximum\":100,\"exclusiveMinimum\":true,\"type\":\"integer\",\"title\":\"Super integer title\",\"minimum\":0}");
     }
 
     @Test
     public void tesNumber() throws Exception
     {
-        SchemaNumber schemaNumber = new SchemaNumber()
-                .root()
-                .title("Super number title")
-                .description("Amazing number description")
-                .multipleOf(2.5)
-                .minimum(0.1)
-                .maximum(100.0)
-                .exclusiveMinimum(false)
-                .exclusiveMaximum(true);
+        RootSchema root = new RootSchema(
+                new NumberSchema()
+                        .title("Super number title")
+                        .description("Amazing number description")
+                        .multipleOf(2.5)
+                        .minimum(0.1)
+                        .maximum(100.0)
+                        .exclusiveMinimum(false)
+                        .exclusiveMaximum(true));
 
-        System.out.println(schemaNumber);
+        assertEquals(root.toString(), "{\"multipleOf\":2.5,\"$schema\":\"http://json-schema.org/schema#\",\"description\":\"Amazing number description\",\"maximum\":100,\"exclusiveMinimum\":false,\"type\":\"number\",\"title\":\"Super number title\",\"minimum\":0.1}");
     }
 
     @Test
     public void testObject() throws Exception
     {
-        SchemaObject schemaObject = new SchemaObject()
-                .root()
-                .title("Super object title")
-                .description("Amazing object description")
-                .definition("user_id", new SchemaString().pattern("[0-9]+"));
+        RootSchema root = new RootSchema(
+                new ObjectSchema()
+                        .title("Super object title")
+                        .description("Amazing object description")
+                        .definition(new Definition("user_id", new StringSchema().pattern("[0-9]+"))));
 
-        System.out.println(schemaObject);
+        assertEquals(root.toString(), "{\"$schema\":\"http://json-schema.org/schema#\",\"description\":\"Amazing object description\",\"type\":\"object\",\"title\":\"Super object title\",\"definitions\":{\"user_id\":{\"pattern\":\"[0-9]+\",\"type\":\"string\"}}}");
     }
 
     @Test
     public void testArray() throws Exception
     {
-        SchemaArray schemaArray = new SchemaArray()
-                .root()
-                .title("Super array title")
-                .description("Amazing array description");
+        RootSchema root = new RootSchema(
+                new ArraySchema()
+                        .title("Super array title")
+                        .description("Amazing array description"));
 
-        System.out.println(schemaArray);
+        assertEquals(root.toString(), "{\"$schema\":\"http://json-schema.org/schema#\",\"description\":\"Amazing array description\",\"type\":\"array\",\"title\":\"Super array title\"}");
     }
 
     @Test
     public void testAny() throws Exception
     {
-        SchemaAny schemaAny = new SchemaAny();
+        RootSchema root = new RootSchema(
+                new AnySchema());
 
-        assertEquals(schemaAny.toString(), "{}");
+        assertEquals(root.toString(), "{\"$schema\":\"http://json-schema.org/schema#\"}");
     }
 }

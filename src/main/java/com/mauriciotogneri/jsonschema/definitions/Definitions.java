@@ -1,6 +1,5 @@
 package com.mauriciotogneri.jsonschema.definitions;
 
-import com.mauriciotogneri.jsonschema.schemas.Schema;
 import com.mauriciotogneri.jsonschema.structures.ImmutableMap;
 
 import java.util.Iterator;
@@ -24,9 +23,9 @@ public class Definitions implements Iterable<Definition>
         return schemas.isEmpty();
     }
 
-    public Definitions add(String name, Schema schema)
+    public Definitions add(Definition definition)
     {
-        return new Definitions(schemas.put(name, new Definition(name, schema)));
+        return new Definitions(schemas.put(definition.name(), definition));
     }
 
     @Override

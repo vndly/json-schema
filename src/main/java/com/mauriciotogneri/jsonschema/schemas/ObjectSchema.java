@@ -1,14 +1,13 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
 import com.mauriciotogneri.jsonschema.attributes.Attributes;
-import com.mauriciotogneri.jsonschema.attributes.Description;
-import com.mauriciotogneri.jsonschema.attributes.SchemaVersion;
-import com.mauriciotogneri.jsonschema.attributes.Title;
 import com.mauriciotogneri.jsonschema.attributes.Type;
+import com.mauriciotogneri.jsonschema.definitions.Definition;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
+import com.mauriciotogneri.jsonschema.json.JsonValue;
 import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 
-public class SchemaObject extends Schema
+public class ObjectSchema implements AbstractSchema
 {
     //    private final ImmutableMap<String, Schema> properties;
     //    private final ImmutableMap<Regex, Schema> patternProperties;
@@ -23,33 +22,48 @@ public class SchemaObject extends Schema
     // TODO: minProperties cannot be bigger than maxProperties
     // TODO: dependencies
 
-    private SchemaObject(Definitions definitions, Attributes attributes)
+    private final Schema schema;
+
+    private ObjectSchema(Schema schema)
     {
-        super(definitions, attributes);
+        this.schema = schema;
     }
 
-    public SchemaObject()
+    public ObjectSchema()
     {
-        super(new Definitions(), new Attributes().add(new Type(PrimitiveType.OBJECT)));
+        this(new Schema(new Definitions(), new Attributes().add(new Type(PrimitiveType.OBJECT))));
     }
 
-    public SchemaObject root()
+    public ObjectSchema definition(Definition definition)
     {
-        return new SchemaObject(definitions, attributes.add(new SchemaVersion()));
+        return new ObjectSchema(schema.definition(definition));
     }
 
-    public SchemaObject definition(String name, Schema schema)
+    public ObjectSchema title(String title)
     {
-        return new SchemaObject(definitions.add(name, schema), attributes);
+        return new ObjectSchema(schema.title(title));
     }
 
-    public SchemaObject title(String title)
+    public ObjectSchema description(String description)
     {
-        return new SchemaObject(definitions, attributes.add(new Title(title)));
+        return new ObjectSchema(schema.description(description));
     }
 
-    public SchemaObject description(String description)
+    @Override
+    public Schema schema()
     {
-        return new SchemaObject(definitions, attributes.add(new Description(description)));
+        return schema;
+    }
+
+    @Override
+    public JsonValue json()
+    {
+        return schema.json();
+    }
+
+    @Override
+    public String toString()
+    {
+        return schema.toString();
     }
 }
