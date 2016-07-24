@@ -1,6 +1,7 @@
 package com.mauriciotogneri.jsonschema.test;
 
 import com.mauriciotogneri.jsonschema.attributes.Enums;
+import com.mauriciotogneri.jsonschema.schemas.SchemaAny;
 import com.mauriciotogneri.jsonschema.schemas.SchemaArray;
 import com.mauriciotogneri.jsonschema.schemas.SchemaBoolean;
 import com.mauriciotogneri.jsonschema.schemas.SchemaInteger;
@@ -10,6 +11,7 @@ import com.mauriciotogneri.jsonschema.schemas.SchemaString;
 import com.mauriciotogneri.jsonschema.types.FormatType;
 
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class TestSample
 {
@@ -93,5 +95,13 @@ public class TestSample
                 .description("Amazing array description");
 
         System.out.println(schemaArray);
+    }
+
+    @Test
+    public void testAny() throws Exception
+    {
+        SchemaAny schemaAny = new SchemaAny();
+
+        assertEquals(schemaAny.toString(), "{}");
     }
 }

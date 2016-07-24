@@ -10,7 +10,7 @@ public class StringArray
     {
         if (value.size() < 1)
         {
-            throw new RuntimeException("String array size is less than 1");
+            throw new RuntimeException("String array cannot be empty");
         }
 
         this.list = value;
