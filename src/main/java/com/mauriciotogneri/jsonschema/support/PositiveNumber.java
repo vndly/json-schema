@@ -2,7 +2,7 @@ package com.mauriciotogneri.jsonschema.support;
 
 public class PositiveNumber
 {
-    private final NumberWrapper value;
+    private final Number value;
 
     public PositiveNumber(Number value)
     {
@@ -11,10 +11,10 @@ public class PositiveNumber
             throw new RuntimeException(String.format("Invalid positive number: %s", value.toString()));
         }
 
-        this.value = new NumberWrapper(value);
+        this.value = value;
     }
 
-    public NumberWrapper value()
+    public Number value()
     {
         return value;
     }
