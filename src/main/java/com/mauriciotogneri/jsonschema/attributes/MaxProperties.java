@@ -4,11 +4,11 @@ import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueNumber;
 import com.mauriciotogneri.jsonschema.support.PositiveNumber;
 
-public class MultipleOf implements Attribute
+public class MaxProperties implements Attribute
 {
     private final PositiveNumber value;
 
-    public MultipleOf(PositiveNumber value)
+    public MaxProperties(PositiveNumber value)
     {
         this.value = value;
     }
@@ -16,6 +16,6 @@ public class MultipleOf implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("multipleOf", new JsonValueNumber(value));
+        return new JsonField("maxProperties", new JsonValueNumber(value));
     }
 }

@@ -11,6 +11,11 @@ public class RootSchema implements AbstractSchema
         this.schema = abstractSchema.schema().root();
     }
 
+    public RootSchema id(String id)
+    {
+        return new RootSchema(schema.id(id));
+    }
+
     @Override
     public Schema schema()
     {

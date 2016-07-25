@@ -16,6 +16,6 @@ public class MaxLength implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("maxLength", new JsonValueNumber(value.value()));
+        return new JsonField("maxLength", new JsonValueNumber(value));
     }
 }

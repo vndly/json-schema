@@ -1,6 +1,6 @@
 package com.mauriciotogneri.jsonschema.support;
 
-public class PositiveNumber
+public class PositiveNumber extends Number
 {
     private final Number value;
 
@@ -14,8 +14,33 @@ public class PositiveNumber
         this.value = value;
     }
 
-    public Number value()
+    @Override
+    public int intValue()
     {
-        return value;
+        return value.intValue();
+    }
+
+    @Override
+    public long longValue()
+    {
+        return value.longValue();
+    }
+
+    @Override
+    public float floatValue()
+    {
+        return value.floatValue();
+    }
+
+    @Override
+    public double doubleValue()
+    {
+        return value.doubleValue();
+    }
+
+    @Override
+    public String toString()
+    {
+        return value.toString();
     }
 }

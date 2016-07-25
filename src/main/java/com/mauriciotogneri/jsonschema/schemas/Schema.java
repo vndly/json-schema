@@ -7,20 +7,27 @@ import com.mauriciotogneri.jsonschema.attributes.Enums;
 import com.mauriciotogneri.jsonschema.attributes.ExclusiveMaximum;
 import com.mauriciotogneri.jsonschema.attributes.ExclusiveMinimum;
 import com.mauriciotogneri.jsonschema.attributes.Format;
+import com.mauriciotogneri.jsonschema.attributes.Id;
+import com.mauriciotogneri.jsonschema.attributes.MaxItems;
 import com.mauriciotogneri.jsonschema.attributes.MaxLength;
+import com.mauriciotogneri.jsonschema.attributes.MaxProperties;
 import com.mauriciotogneri.jsonschema.attributes.Maximum;
+import com.mauriciotogneri.jsonschema.attributes.MinIProperties;
+import com.mauriciotogneri.jsonschema.attributes.MinItems;
 import com.mauriciotogneri.jsonschema.attributes.MinLength;
 import com.mauriciotogneri.jsonschema.attributes.Minimum;
 import com.mauriciotogneri.jsonschema.attributes.MultipleOf;
 import com.mauriciotogneri.jsonschema.attributes.Pattern;
 import com.mauriciotogneri.jsonschema.attributes.SchemaVersion;
 import com.mauriciotogneri.jsonschema.attributes.Title;
+import com.mauriciotogneri.jsonschema.attributes.UniqueItems;
 import com.mauriciotogneri.jsonschema.definitions.Definition;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.json.JsonObject;
 import com.mauriciotogneri.jsonschema.json.JsonValue;
 import com.mauriciotogneri.jsonschema.support.PositiveNumber;
 import com.mauriciotogneri.jsonschema.support.Regex;
+import com.mauriciotogneri.jsonschema.support.Uri;
 import com.mauriciotogneri.jsonschema.types.FormatType;
 
 public class Schema implements AbstractSchema
@@ -32,6 +39,11 @@ public class Schema implements AbstractSchema
     {
         this.definitions = definitions;
         this.attributes = attributes;
+    }
+
+    public Schema id(String id)
+    {
+        return new Schema(definitions, attributes.add(new Id(new Uri(id))));
     }
 
     public Schema root()
@@ -117,6 +129,31 @@ public class Schema implements AbstractSchema
     public Schema exclusiveMaximum(boolean value)
     {
         return new Schema(definitions, attributes.add(new ExclusiveMaximum(value)));
+    }
+
+    public Schema minItems(long minItems)
+    {
+        return new Schema(definitions, attributes.add(new MinItems(new PositiveNumber(minItems))));
+    }
+
+    public Schema maxItems(long maxItems)
+    {
+        return new Schema(definitions, attributes.add(new MaxItems(new PositiveNumber(maxItems))));
+    }
+
+    public Schema uniqueItems(boolean value)
+    {
+        return new Schema(definitions, attributes.add(new UniqueItems(value)));
+    }
+
+    public Schema minIProperties(long minIProperties)
+    {
+        return new Schema(definitions, attributes.add(new MinIProperties(new PositiveNumber(minIProperties))));
+    }
+
+    public Schema maxProperties(long maxProperties)
+    {
+        return new Schema(definitions, attributes.add(new MaxProperties(new PositiveNumber(maxProperties))));
     }
 
     @Override

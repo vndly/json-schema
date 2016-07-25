@@ -16,6 +16,6 @@ public class MinLength implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("minLength", new JsonValueNumber(value.value()));
+        return new JsonField("minLength", new JsonValueNumber(value));
     }
 }
