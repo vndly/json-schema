@@ -31,7 +31,7 @@ public class TestSample
                         .format(FormatType.DATE_TIME)
                         .enums(new Enums().withString("A").withBoolean(true).withNumber(123)));
 
-        assertEquals(root.toString(), "{\"enums\":[\"A\",true,123],\"$schema\":\"http://json-schema.org/schema#\",\"minLength\":1,\"format\":\"date-time\",\"pattern\":\"*\",\"description\":\"Amazing string description\",\"type\":\"string\",\"title\":\"Super string title\",\"maxLength\":10}");
+        assertEquals(root.toString(), "{\"type\":\"string\",\"title\":\"Super string title\",\"description\":\"Amazing string description\",\"minLength\":1,\"maxLength\":10,\"pattern\":\"*\",\"format\":\"date-time\",\"enums\":[\"A\",true,123.0],\"$schema\":\"http://json-schema.org/schema#\"}");
     }
 
     @Test
@@ -42,7 +42,7 @@ public class TestSample
                         .title("Super boolean title")
                         .description("Amazing boolean description"));
 
-        assertEquals(root.toString(), "{\"$schema\":\"http://json-schema.org/schema#\",\"description\":\"Amazing boolean description\",\"type\":\"boolean\",\"title\":\"Super boolean title\"}");
+        assertEquals(root.toString(), "{\"type\":\"boolean\",\"title\":\"Super boolean title\",\"description\":\"Amazing boolean description\",\"$schema\":\"http://json-schema.org/schema#\"}");
     }
 
     @Test
@@ -58,7 +58,7 @@ public class TestSample
                         .exclusiveMinimum(true)
                         .exclusiveMaximum(false));
 
-        assertEquals(root.toString(), "{\"multipleOf\":2,\"$schema\":\"http://json-schema.org/schema#\",\"description\":\"Amazing integer description\",\"maximum\":100,\"exclusiveMinimum\":true,\"type\":\"integer\",\"title\":\"Super integer title\",\"minimum\":0}");
+        assertEquals(root.toString(), "{\"type\":\"integer\",\"title\":\"Super integer title\",\"description\":\"Amazing integer description\",\"multipleOf\":2,\"minimum\":0,\"maximum\":100,\"exclusiveMinimum\":true,\"exclusiveMaximum\":false,\"$schema\":\"http://json-schema.org/schema#\"}");
     }
 
     @Test
@@ -74,7 +74,7 @@ public class TestSample
                         .exclusiveMinimum(false)
                         .exclusiveMaximum(true));
 
-        assertEquals(root.toString(), "{\"multipleOf\":2.5,\"$schema\":\"http://json-schema.org/schema#\",\"description\":\"Amazing number description\",\"maximum\":100,\"exclusiveMinimum\":false,\"type\":\"number\",\"title\":\"Super number title\",\"minimum\":0.1}");
+        assertEquals(root.toString(), "{\"type\":\"number\",\"title\":\"Super number title\",\"description\":\"Amazing number description\",\"multipleOf\":2.5,\"minimum\":0.1,\"maximum\":100.0,\"exclusiveMinimum\":false,\"exclusiveMaximum\":true,\"$schema\":\"http://json-schema.org/schema#\"}");
     }
 
     @Test
@@ -86,7 +86,7 @@ public class TestSample
                         .description("Amazing object description")
                         .definition(new Definition("user_id", new StringSchema().pattern("[0-9]+"))));
 
-        assertEquals(root.toString(), "{\"$schema\":\"http://json-schema.org/schema#\",\"description\":\"Amazing object description\",\"type\":\"object\",\"title\":\"Super object title\",\"definitions\":{\"user_id\":{\"pattern\":\"[0-9]+\",\"type\":\"string\"}}}");
+        assertEquals(root.toString(), "{\"definitions\":{\"user_id\":{\"type\":\"string\",\"pattern\":\"[0-9]+\"}},\"type\":\"object\",\"title\":\"Super object title\",\"description\":\"Amazing object description\",\"$schema\":\"http://json-schema.org/schema#\"}");
     }
 
     @Test
@@ -97,7 +97,7 @@ public class TestSample
                         .title("Super array title")
                         .description("Amazing array description"));
 
-        assertEquals(root.toString(), "{\"$schema\":\"http://json-schema.org/schema#\",\"description\":\"Amazing array description\",\"type\":\"array\",\"title\":\"Super array title\"}");
+        assertEquals(root.toString(), "{\"type\":\"array\",\"title\":\"Super array title\",\"description\":\"Amazing array description\",\"$schema\":\"http://json-schema.org/schema#\"}");
     }
 
     @Test

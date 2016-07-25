@@ -15,6 +15,6 @@ public class ExclusiveMaximum implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("exclusiveMinimum", new JsonValueBoolean(value));
+        return new JsonField("exclusiveMaximum", new JsonValueBoolean(value));
     }
 }

@@ -23,11 +23,6 @@ public class Attributes implements Iterable<Attribute>
         return new Attributes(attributes.put(attribute.getClass(), attribute));
     }
 
-    public boolean isEmpty()
-    {
-        return attributes.isEmpty();
-    }
-
     @Override
     public Iterator<Attribute> iterator()
     {

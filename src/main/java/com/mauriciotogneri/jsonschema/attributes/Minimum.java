@@ -2,20 +2,20 @@ package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueNumber;
+import com.mauriciotogneri.jsonschema.support.NumberWrapper;
 
 public class Minimum<N extends Number> implements Attribute
 {
-    private final N value;
+    private final NumberWrapper value;
 
     public Minimum(N value)
     {
-        this.value = value;
+        this.value = new NumberWrapper(value);
     }
 
     @Override
     public JsonField json()
     {
-        // TODO: print int value if N is int
-        return new JsonField("minimum", new JsonValueNumber(value.doubleValue()));
+        return new JsonField("minimum", new JsonValueNumber(value));
     }
 }

@@ -24,6 +24,7 @@ public class JsonValueNumber implements JsonValue
     @Override
     public String toString()
     {
-        return value.isInteger() ? String.valueOf(value.intValue()) : String.valueOf(value.doubleValue());
+        return value.value().toString();
+        //return value.isInteger() ? String.valueOf(value.intValue()) : String.valueOf(value.doubleValue());
     }
 }

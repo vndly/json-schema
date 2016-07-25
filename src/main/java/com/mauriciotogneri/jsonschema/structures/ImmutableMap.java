@@ -1,8 +1,8 @@
 package com.mauriciotogneri.jsonschema.structures;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -18,12 +18,12 @@ public class ImmutableMap<K, V>
 
     public ImmutableMap()
     {
-        this(new HashMap<>());
+        this(new LinkedHashMap<>());
     }
 
     public ImmutableMap<K, V> put(K key, V value)
     {
-        Map<K, V> newMap = new HashMap<>();
+        Map<K, V> newMap = new LinkedHashMap<>();
 
         for (Entry<K, V> entry : map.entrySet())
         {

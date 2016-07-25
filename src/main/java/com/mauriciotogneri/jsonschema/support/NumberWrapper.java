@@ -19,7 +19,11 @@ public class NumberWrapper
         this.value = value;
     }
 
-    public boolean isNegative()
+    public Number value() {
+        return value;
+    }
+
+    /*public boolean isNegative()
     {
         return value.doubleValue() < 0;
     }
@@ -37,5 +41,5 @@ public class NumberWrapper
     public double doubleValue()
     {
         return value.doubleValue();
-    }
+    }*/
 }
