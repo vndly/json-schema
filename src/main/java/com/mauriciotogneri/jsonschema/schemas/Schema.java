@@ -18,6 +18,7 @@ import com.mauriciotogneri.jsonschema.attributes.MinLength;
 import com.mauriciotogneri.jsonschema.attributes.Minimum;
 import com.mauriciotogneri.jsonschema.attributes.MultipleOf;
 import com.mauriciotogneri.jsonschema.attributes.Pattern;
+import com.mauriciotogneri.jsonschema.attributes.Required;
 import com.mauriciotogneri.jsonschema.attributes.SchemaVersion;
 import com.mauriciotogneri.jsonschema.attributes.Title;
 import com.mauriciotogneri.jsonschema.attributes.UniqueItems;
@@ -30,6 +31,10 @@ import com.mauriciotogneri.jsonschema.support.Regex;
 import com.mauriciotogneri.jsonschema.support.Uri;
 import com.mauriciotogneri.jsonschema.types.FormatType;
 
+import java.util.List;
+
+// https://spacetelescope.github.io/understanding-json-schema
+// https://json-schema-validator.herokuapp.com/syntax.jsp
 public class Schema implements AbstractSchema
 {
     private final Definitions definitions;
@@ -154,6 +159,16 @@ public class Schema implements AbstractSchema
     public Schema maxProperties(long maxProperties)
     {
         return new Schema(definitions, attributes.add(new MaxProperties(new PositiveNumber(maxProperties))));
+    }
+
+    public Schema required(String... values)
+    {
+        return new Schema(definitions, attributes.add(new Required(values)));
+    }
+
+    public Schema required(List<String> values)
+    {
+        return new Schema(definitions, attributes.add(new Required(values)));
     }
 
     @Override
