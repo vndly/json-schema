@@ -3,7 +3,7 @@ package com.mauriciotogneri.jsonschema.schemas;
 import com.mauriciotogneri.jsonschema.attributes.Attribute;
 import com.mauriciotogneri.jsonschema.attributes.Attributes;
 import com.mauriciotogneri.jsonschema.attributes.Description;
-import com.mauriciotogneri.jsonschema.attributes.Enums;
+import com.mauriciotogneri.jsonschema.attributes.Enum;
 import com.mauriciotogneri.jsonschema.attributes.ExclusiveMaximum;
 import com.mauriciotogneri.jsonschema.attributes.ExclusiveMinimum;
 import com.mauriciotogneri.jsonschema.attributes.Format;
@@ -91,7 +91,7 @@ public class Schema implements AbstractSchema
         return new Schema(definitions, attributes.add(new Format(format)));
     }
 
-    public Schema enums(Enums enums)
+    public Schema enums(Enum enums)
     {
         return new Schema(definitions, attributes.add(enums));
     }
