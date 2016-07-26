@@ -95,4 +95,12 @@ public class ClassDef
                 !isNumber() &&
                 !isArray();
     }
+
+    public boolean isPrimitive()
+    {
+        return isString() ||
+                isBoolean() ||
+                isInteger() ||
+                isNumber();
+    }
 }

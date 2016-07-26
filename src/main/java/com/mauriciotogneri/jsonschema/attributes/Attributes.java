@@ -27,44 +27,54 @@ public class Attributes implements Iterable<Attribute>
         this.attributes = attributes;
     }
 
-    public Attributes(ClassDef classDef, Annotations annotations)
+    public Attributes(ClassDef classDef, Annotations annotations, boolean useReferences)
     {
         AttributeMap attributes = new AttributeMap();
 
-        attributes.add(new TypeAttribute(primitiveType(classDef)));
-
-        if (annotations.has(Title.class))
+        if (classDef.isPrimitive())
         {
-            attributes.add(new TitleAttribute(annotations.annotation(Title.class).value()));
-        }
+            attributes.add(new TypeAttribute(primitiveType(classDef)));
 
-        if (annotations.has(Description.class))
-        {
-            attributes.add(new DescriptionAttribute(annotations.annotation(Description.class).value()));
-        }
+            if (annotations.has(Title.class))
+            {
+                attributes.add(new TitleAttribute(annotations.annotation(Title.class).value()));
+            }
 
-        if (annotations.has(Id.class))
-        {
-            attributes.add(new IdAttribute(new Uri(annotations.annotation(Id.class).value())));
-        }
+            if (annotations.has(Description.class))
+            {
+                attributes.add(new DescriptionAttribute(annotations.annotation(Description.class).value()));
+            }
 
-        if (annotations.has(MinLength.class))
-        {
-            attributes.add(new MinLengthAttribute(new PositiveNumber(annotations.annotation(MinLength.class).value())));
-        }
+            if (annotations.has(Id.class))
+            {
+                attributes.add(new IdAttribute(new Uri(annotations.annotation(Id.class).value())));
+            }
 
-        if (annotations.has(MaxLength.class))
-        {
-            attributes.add(new MaxLengthAttribute(new PositiveNumber(annotations.annotation(MaxLength.class).value())));
+            if (annotations.has(MinLength.class))
+            {
+                attributes.add(new MinLengthAttribute(new PositiveNumber(annotations.annotation(MinLength.class).value())));
+            }
+
+            if (annotations.has(MaxLength.class))
+            {
+                attributes.add(new MaxLengthAttribute(new PositiveNumber(annotations.annotation(MaxLength.class).value())));
+            }
         }
 
         if (classDef.isArray())
         {
-            attributes.add(new ItemsAttribute(new Schema(classDef.componentType())));
+            attributes.add(new ItemsAttribute(new Schema(classDef.componentType(), useReferences)));
         }
         else if (classDef.isObject())
         {
-            attributes.add(new PropertiesAttribute(properties(classDef)));
+            if (useReferences)
+            {
+                attributes.add(RefAttribute.fromDefinitions(classDef.name()));
+            }
+            else
+            {
+                attributes.add(new PropertiesAttribute(properties(classDef)));
+            }
         }
 
         this.attributes = new ImmutableMap<>(attributes);
@@ -87,7 +97,9 @@ public class Attributes implements Iterable<Attribute>
 
         for (int i = 0; i < fields.length; i++)
         {
-            properties[i] = new Property(fields[i]);
+            FieldDef fieldDef = fields[i];
+
+            properties[i] = new Property(fieldDef.name(), new Schema(fieldDef, false));
         }
 
         return properties;

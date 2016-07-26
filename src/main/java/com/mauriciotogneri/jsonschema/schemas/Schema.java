@@ -53,24 +53,24 @@ public class Schema implements AbstractSchema
         this.attributes = attributes;
     }
 
-    private Schema(ClassDef classDef, Annotations annotations)
+    private Schema(ClassDef classDef, Annotations annotations, boolean useReferences)
     {
-        this(new Definitions(classDef), new Attributes(classDef, annotations));
+        this(new Definitions(classDef), new Attributes(classDef, annotations, useReferences));
     }
 
-    public Schema(ClassDef classDef)
+    public Schema(ClassDef classDef, boolean useReferences)
     {
-        this(classDef, new Annotations(classDef.annotations()));
+        this(classDef, new Annotations(classDef.annotations()), useReferences);
     }
 
-    public Schema(FieldDef fieldDef)
+    public Schema(FieldDef fieldDef, boolean useReferences)
     {
-        this(fieldDef.classDef(), new Annotations(fieldDef.annotations()));
+        this(fieldDef.classDef(), new Annotations(fieldDef.annotations()), useReferences);
     }
 
-    public Schema(Class<?> clazz)
+    public Schema(Class<?> clazz, boolean useReferences)
     {
-        this(new ClassDef(clazz));
+        this(new ClassDef(clazz), useReferences);
     }
 
     public Schema()

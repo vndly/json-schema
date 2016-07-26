@@ -8,10 +8,10 @@ public class Property
     private final String name;
     private final Schema schema;
 
-    public Property(FieldDef fieldDef)
+    public Property(String name, Schema schema)
     {
-        this.name = fieldDef.name();
-        this.schema = new Schema(fieldDef);
+        this.name = name;
+        this.schema = schema;
     }
 
     public JsonField json()

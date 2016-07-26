@@ -17,7 +17,7 @@ public class TestAnnotation
     @Test
     public void test() throws Exception
     {
-        Schema schema = new Schema(Person.class).schemaVersion();
+        Schema schema = new Schema(Person.class, true).schemaVersion();
         print(schema.json());
     }
 
@@ -38,6 +38,19 @@ public class TestAnnotation
 
         @Title("True if the person is married")
         public boolean married;
+
+        public Address address;
+    }
+
+    public static class Address
+    {
+        public String street;
+
+        public String number;
+
+        public String city;
+
+        public int postalCode;
     }
 
     private void print(JsonElement json)

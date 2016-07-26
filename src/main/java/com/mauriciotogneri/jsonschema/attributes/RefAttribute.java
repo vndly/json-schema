@@ -5,16 +5,21 @@ import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 
 public class RefAttribute implements Attribute
 {
-    private final String value;
+    private final String ref;
 
-    public RefAttribute(String value)
+    public RefAttribute(String ref)
     {
-        this.value = value;
+        this.ref = ref;
     }
 
     @Override
     public JsonField json()
     {
-        return new JsonField("$ref", new JsonPrimitive(value));
+        return new JsonField("$ref", new JsonPrimitive(ref));
+    }
+
+    public static RefAttribute fromDefinitions(String ref)
+    {
+        return new RefAttribute(String.format("#/definitions/%s", ref));
     }
 }
