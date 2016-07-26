@@ -26,6 +26,7 @@ import com.mauriciotogneri.jsonschema.definitions.Definition;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.json.JsonObject;
 import com.mauriciotogneri.jsonschema.json.JsonValue;
+import com.mauriciotogneri.jsonschema.support.ClassDef;
 import com.mauriciotogneri.jsonschema.support.PositiveNumber;
 import com.mauriciotogneri.jsonschema.support.Regex;
 import com.mauriciotogneri.jsonschema.support.Uri;
@@ -44,6 +45,16 @@ public class Schema implements AbstractSchema
     {
         this.definitions = definitions;
         this.attributes = attributes;
+    }
+
+    public Schema(Class<?> clazz)
+    {
+        this(new Definitions(new ClassDef(clazz)), new Attributes(new ClassDef(clazz)).add(new SchemaVersion()));
+    }
+
+    public Schema()
+    {
+        this(new Definitions(), new Attributes());
     }
 
     public Schema id(String id)

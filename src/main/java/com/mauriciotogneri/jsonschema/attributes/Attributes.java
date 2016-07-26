@@ -1,8 +1,12 @@
 package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.structures.ImmutableMap;
+import com.mauriciotogneri.jsonschema.support.ClassDef;
+import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Attributes implements Iterable<Attribute>
 {
@@ -13,9 +17,41 @@ public class Attributes implements Iterable<Attribute>
         this.attributes = attributes;
     }
 
+    public Attributes(ClassDef classDef)
+    {
+        Map<Class<?>, Attribute> attributes = new LinkedHashMap<>();
+
+        if (classDef.isString())
+        {
+            attributes.put(Type.class, new Type(PrimitiveType.STRING));
+        }
+        else if (classDef.isBoolean())
+        {
+            attributes.put(Type.class, new Type(PrimitiveType.BOOLEAN));
+        }
+        else if (classDef.isInteger())
+        {
+            attributes.put(Type.class, new Type(PrimitiveType.INTEGER));
+        }
+        else if (classDef.isNumber())
+        {
+            attributes.put(Type.class, new Type(PrimitiveType.NUMBER));
+        }
+        else if (classDef.isArray())
+        {
+            attributes.put(Type.class, new Type(PrimitiveType.ARRAY));
+        }
+        else
+        {
+            attributes.put(Type.class, new Type(PrimitiveType.OBJECT));
+        }
+
+        this.attributes = new ImmutableMap<>(attributes);
+    }
+
     public Attributes()
     {
-        this.attributes = new ImmutableMap<>();
+        this(new ImmutableMap<>());
     }
 
     public Attributes add(Attribute attribute)

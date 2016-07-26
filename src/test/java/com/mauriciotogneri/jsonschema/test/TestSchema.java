@@ -16,7 +16,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestSample
+public class TestSchema
 {
     @Test
     public void testString() throws Exception

@@ -11,7 +11,7 @@ public class ImmutableMap<K, V>
 {
     private final Map<K, V> map;
 
-    private ImmutableMap(Map<K, V> map)
+    public ImmutableMap(Map<K, V> map)
     {
         this.map = map;
     }
