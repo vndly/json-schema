@@ -13,12 +13,13 @@ import com.mauriciotogneri.jsonschema.attributes.MaxItemsAttribute;
 import com.mauriciotogneri.jsonschema.attributes.MaxLengthAttribute;
 import com.mauriciotogneri.jsonschema.attributes.MaxPropertiesAttribute;
 import com.mauriciotogneri.jsonschema.attributes.MaximumAttribute;
-import com.mauriciotogneri.jsonschema.attributes.MinPropertiesAttribute;
 import com.mauriciotogneri.jsonschema.attributes.MinItemsAttribute;
 import com.mauriciotogneri.jsonschema.attributes.MinLengthAttribute;
+import com.mauriciotogneri.jsonschema.attributes.MinPropertiesAttribute;
 import com.mauriciotogneri.jsonschema.attributes.MinimumAttribute;
 import com.mauriciotogneri.jsonschema.attributes.MultipleOfAttribute;
 import com.mauriciotogneri.jsonschema.attributes.PatternAttribute;
+import com.mauriciotogneri.jsonschema.attributes.PropertiesAttribute;
 import com.mauriciotogneri.jsonschema.attributes.RefAttribute;
 import com.mauriciotogneri.jsonschema.attributes.RequiredAttribute;
 import com.mauriciotogneri.jsonschema.attributes.SchemaAttribute;
@@ -30,7 +31,9 @@ import com.mauriciotogneri.jsonschema.json.JsonObject;
 import com.mauriciotogneri.jsonschema.json.JsonValue;
 import com.mauriciotogneri.jsonschema.support.Annotations;
 import com.mauriciotogneri.jsonschema.support.ClassDef;
+import com.mauriciotogneri.jsonschema.support.FieldDef;
 import com.mauriciotogneri.jsonschema.support.PositiveNumber;
+import com.mauriciotogneri.jsonschema.support.Property;
 import com.mauriciotogneri.jsonschema.support.Regex;
 import com.mauriciotogneri.jsonschema.support.Uri;
 import com.mauriciotogneri.jsonschema.types.FormatType;
@@ -50,9 +53,19 @@ public class Schema implements AbstractSchema
         this.attributes = attributes;
     }
 
+    private Schema(ClassDef classDef, Annotations annotations)
+    {
+        this(new Definitions(classDef), new Attributes(classDef, annotations));
+    }
+
     public Schema(ClassDef classDef)
     {
-        this(new Definitions(classDef), new Attributes(classDef, new Annotations(classDef)).add(new SchemaAttribute()));
+        this(classDef, new Annotations(classDef.annotations()));
+    }
+
+    public Schema(FieldDef fieldDef)
+    {
+        this(fieldDef.classDef(), new Annotations(fieldDef.annotations()));
     }
 
     public Schema(Class<?> clazz)
@@ -93,6 +106,11 @@ public class Schema implements AbstractSchema
     public Schema ref(String ref)
     {
         return new Schema(definitions, attributes.add(new RefAttribute(ref)));
+    }
+
+    public Schema properties(Property... properties)
+    {
+        return new Schema(definitions, attributes.add(new PropertiesAttribute(properties)));
     }
 
     public Schema items(Schema... schemas)

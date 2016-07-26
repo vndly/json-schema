@@ -9,7 +9,9 @@ import com.mauriciotogneri.jsonschema.schemas.Schema;
 import com.mauriciotogneri.jsonschema.structures.ImmutableMap;
 import com.mauriciotogneri.jsonschema.support.Annotations;
 import com.mauriciotogneri.jsonschema.support.ClassDef;
+import com.mauriciotogneri.jsonschema.support.FieldDef;
 import com.mauriciotogneri.jsonschema.support.PositiveNumber;
+import com.mauriciotogneri.jsonschema.support.Property;
 import com.mauriciotogneri.jsonschema.support.Uri;
 import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 
@@ -62,7 +64,15 @@ public class Attributes implements Iterable<Attribute>
         }
         else if (classDef.isObject())
         {
-            attributes.add(new RefAttribute(classDef.name()));
+            FieldDef[] fields = classDef.fields();
+            Property[] properties = new Property[fields.length];
+
+            for (int i = 0; i < fields.length; i++)
+            {
+                properties[i] = new Property(fields[i]);
+            }
+
+            attributes.add(new PropertiesAttribute(properties));
         }
 
         this.attributes = new ImmutableMap<>(attributes);

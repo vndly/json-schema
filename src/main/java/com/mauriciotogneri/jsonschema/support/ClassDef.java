@@ -1,6 +1,7 @@
 package com.mauriciotogneri.jsonschema.support;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -16,6 +17,19 @@ public class ClassDef
     public String name()
     {
         return clazz.getSimpleName();
+    }
+
+    public FieldDef[] fields()
+    {
+        Field[] fields = clazz.getDeclaredFields();
+        FieldDef[] result = new FieldDef[fields.length];
+
+        for (int i = 0; i < fields.length; i++)
+        {
+            result[i] = new FieldDef(fields[i]);
+        }
+
+        return result;
     }
 
     public Annotation[] annotations()

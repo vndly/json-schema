@@ -8,11 +8,11 @@ public class Annotations
 {
     private final Map<Class<?>, Annotation> annotations;
 
-    public Annotations(ClassDef classDef)
+    public Annotations(Annotation[] annotationList)
     {
         this.annotations = new LinkedHashMap<>();
 
-        for (Annotation annotation : classDef.annotations())
+        for (Annotation annotation : annotationList)
         {
             annotations.put(annotation.annotationType(), annotation);
         }
