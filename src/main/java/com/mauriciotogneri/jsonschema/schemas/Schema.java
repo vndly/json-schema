@@ -63,9 +63,9 @@ public class Schema implements AbstractSchema
         this(classDef, new Annotations(classDef.annotations()), useReferences);
     }
 
-    public Schema(FieldDef fieldDef, boolean useReferences)
+    public Schema(FieldDef fieldDef)
     {
-        this(fieldDef.classDef(), new Annotations(fieldDef.annotations()), useReferences);
+        this(fieldDef.classDef(), new Annotations(fieldDef.annotations()), true);
     }
 
     public Schema(Class<?> clazz)

@@ -31,7 +31,7 @@ public class Attributes implements Iterable<Attribute>
     {
         AttributeMap attributes = new AttributeMap();
 
-        if (classDef.isPrimitive())
+        if (classDef.isPrimitive() || !useReferences)
         {
             attributes.add(new TypeAttribute(primitiveType(classDef)));
 
@@ -63,7 +63,7 @@ public class Attributes implements Iterable<Attribute>
 
         if (classDef.isArray())
         {
-            attributes.add(new ItemsAttribute(new Schema(classDef.componentType(), useReferences)));
+            attributes.add(new ItemsAttribute(new Schema(classDef.componentType(), true)));
         }
         else if (classDef.isObject())
         {
@@ -99,7 +99,7 @@ public class Attributes implements Iterable<Attribute>
         {
             FieldDef fieldDef = fields[i];
 
-            properties[i] = new Property(fieldDef.name(), new Schema(fieldDef, false));
+            properties[i] = new Property(fieldDef.name(), new Schema(fieldDef));
         }
 
         return properties;
