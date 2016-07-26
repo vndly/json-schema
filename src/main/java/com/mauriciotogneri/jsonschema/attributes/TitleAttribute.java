@@ -1,7 +1,7 @@
 package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
-import com.mauriciotogneri.jsonschema.json.JsonValueString;
+import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 
 public class TitleAttribute implements Attribute
 {
@@ -15,6 +15,6 @@ public class TitleAttribute implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("title", new JsonValueString(value));
+        return new JsonField("title", new JsonPrimitive(value));
     }
 }

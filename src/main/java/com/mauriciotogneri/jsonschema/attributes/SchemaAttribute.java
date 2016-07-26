@@ -1,7 +1,7 @@
 package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
-import com.mauriciotogneri.jsonschema.json.JsonValueString;
+import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 
 public class SchemaAttribute implements Attribute
 {
@@ -12,6 +12,6 @@ public class SchemaAttribute implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("$schema", new JsonValueString("http://json-schema.org/schema#"));
+        return new JsonField("$schema", new JsonPrimitive("http://json-schema.org/schema#"));
     }
 }

@@ -28,7 +28,7 @@ import com.mauriciotogneri.jsonschema.attributes.UniqueItemsAttribute;
 import com.mauriciotogneri.jsonschema.definitions.Definition;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.json.JsonObject;
-import com.mauriciotogneri.jsonschema.json.JsonValue;
+import com.mauriciotogneri.jsonschema.json.JsonElement;
 import com.mauriciotogneri.jsonschema.support.Annotations;
 import com.mauriciotogneri.jsonschema.support.ClassDef;
 import com.mauriciotogneri.jsonschema.support.FieldDef;
@@ -225,7 +225,7 @@ public class Schema implements AbstractSchema
     }
 
     @Override
-    public JsonValue json()
+    public JsonElement json()
     {
         JsonObject json = new JsonObject();
 

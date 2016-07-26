@@ -2,11 +2,11 @@ package com.mauriciotogneri.jsonschema.json;
 
 import com.mauriciotogneri.jsonschema.structures.ImmutableList;
 
-public class JsonArray implements JsonValue
+public class JsonArray implements JsonElement
 {
-    private final ImmutableList<JsonValue> items;
+    private final ImmutableList<JsonElement> items;
 
-    public JsonArray(ImmutableList<JsonValue> items)
+    public JsonArray(ImmutableList<JsonElement> items)
     {
         this.items = items;
     }
@@ -16,7 +16,7 @@ public class JsonArray implements JsonValue
         this.items = new ImmutableList<>();
     }
 
-    public JsonArray add(JsonValue value)
+    public JsonArray add(JsonElement value)
     {
         return new JsonArray(items.add(value));
     }
@@ -26,7 +26,7 @@ public class JsonArray implements JsonValue
     {
         StringBuilder builder = new StringBuilder();
 
-        for (JsonValue value : items)
+        for (JsonElement value : items)
         {
             if (builder.length() != 0)
             {

@@ -3,9 +3,9 @@ package com.mauriciotogneri.jsonschema.json;
 public class JsonField
 {
     private final String name;
-    private final JsonValue value;
+    private final JsonElement value;
 
-    public JsonField(String name, JsonValue value)
+    public JsonField(String name, JsonElement value)
     {
         this.name = name;
         this.value = value;
@@ -16,7 +16,7 @@ public class JsonField
         return name;
     }
 
-    public JsonValue value()
+    public JsonElement value()
     {
         return value;
     }

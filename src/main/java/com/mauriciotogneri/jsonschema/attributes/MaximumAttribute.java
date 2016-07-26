@@ -1,7 +1,7 @@
 package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
-import com.mauriciotogneri.jsonschema.json.JsonValueNumber;
+import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 
 public class MaximumAttribute<N extends Number> implements Attribute
 {
@@ -15,6 +15,6 @@ public class MaximumAttribute<N extends Number> implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("maximum", new JsonValueNumber(value));
+        return new JsonField("maximum", new JsonPrimitive(value));
     }
 }

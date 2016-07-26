@@ -1,7 +1,7 @@
 package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
-import com.mauriciotogneri.jsonschema.json.JsonValueString;
+import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 import com.mauriciotogneri.jsonschema.support.Uri;
 
 public class IdAttribute implements Attribute
@@ -16,6 +16,6 @@ public class IdAttribute implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("id", new JsonValueString(value.value()));
+        return new JsonField("id", new JsonPrimitive(value.value()));
     }
 }

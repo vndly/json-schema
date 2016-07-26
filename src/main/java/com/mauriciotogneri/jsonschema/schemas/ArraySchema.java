@@ -4,7 +4,7 @@ import com.mauriciotogneri.jsonschema.attributes.Attributes;
 import com.mauriciotogneri.jsonschema.attributes.TypeAttribute;
 import com.mauriciotogneri.jsonschema.definitions.Definition;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
-import com.mauriciotogneri.jsonschema.json.JsonValue;
+import com.mauriciotogneri.jsonschema.json.JsonElement;
 import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 
 public class ArraySchema implements AbstractSchema
@@ -51,7 +51,7 @@ public class ArraySchema implements AbstractSchema
     }
 
     @Override
-    public JsonValue json()
+    public JsonElement json()
     {
         return schema.json();
     }

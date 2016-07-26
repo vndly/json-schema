@@ -1,7 +1,7 @@
 package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
-import com.mauriciotogneri.jsonschema.json.JsonValueBoolean;
+import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 
 public class ExclusiveMaximumAttribute implements Attribute
 {
@@ -15,6 +15,6 @@ public class ExclusiveMaximumAttribute implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("exclusiveMaximum", new JsonValueBoolean(value));
+        return new JsonField("exclusiveMaximum", new JsonPrimitive(value));
     }
 }

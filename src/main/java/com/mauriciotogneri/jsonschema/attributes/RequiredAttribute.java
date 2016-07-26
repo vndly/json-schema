@@ -1,9 +1,9 @@
 package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonArray;
+import com.mauriciotogneri.jsonschema.json.JsonElement;
 import com.mauriciotogneri.jsonschema.json.JsonField;
-import com.mauriciotogneri.jsonschema.json.JsonValue;
-import com.mauriciotogneri.jsonschema.json.JsonValueString;
+import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 import com.mauriciotogneri.jsonschema.structures.ImmutableList;
 
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RequiredAttribute implements Attribute
 {
-    private final ImmutableList<JsonValue> values;
+    private final ImmutableList<JsonElement> values;
 
     public RequiredAttribute(String... values)
     {
@@ -24,7 +24,7 @@ public class RequiredAttribute implements Attribute
 
         for (String value : values)
         {
-            this.values.add(new JsonValueString(value));
+            this.values.add(new JsonPrimitive(value));
         }
     }
 

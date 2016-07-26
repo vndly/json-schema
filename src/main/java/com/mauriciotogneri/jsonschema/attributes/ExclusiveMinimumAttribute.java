@@ -1,7 +1,7 @@
 package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
-import com.mauriciotogneri.jsonschema.json.JsonValueBoolean;
+import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 
 public class ExclusiveMinimumAttribute implements Attribute
 {
@@ -15,6 +15,6 @@ public class ExclusiveMinimumAttribute implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("exclusiveMinimum", new JsonValueBoolean(value));
+        return new JsonField("exclusiveMinimum", new JsonPrimitive(value));
     }
 }

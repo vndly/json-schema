@@ -64,15 +64,7 @@ public class Attributes implements Iterable<Attribute>
         }
         else if (classDef.isObject())
         {
-            FieldDef[] fields = classDef.fields();
-            Property[] properties = new Property[fields.length];
-
-            for (int i = 0; i < fields.length; i++)
-            {
-                properties[i] = new Property(fields[i]);
-            }
-
-            attributes.add(new PropertiesAttribute(properties));
+            attributes.add(new PropertiesAttribute(properties(classDef)));
         }
 
         this.attributes = new ImmutableMap<>(attributes);
@@ -86,6 +78,19 @@ public class Attributes implements Iterable<Attribute>
     public Attributes add(Attribute attribute)
     {
         return new Attributes(attributes.put(attribute.getClass(), attribute));
+    }
+
+    private Property[] properties(ClassDef classDef)
+    {
+        FieldDef[] fields = classDef.fields();
+        Property[] properties = new Property[fields.length];
+
+        for (int i = 0; i < fields.length; i++)
+        {
+            properties[i] = new Property(fields[i]);
+        }
+
+        return properties;
     }
 
     private PrimitiveType primitiveType(ClassDef classDef)

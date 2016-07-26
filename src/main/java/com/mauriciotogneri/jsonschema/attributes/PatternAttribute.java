@@ -1,7 +1,7 @@
 package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
-import com.mauriciotogneri.jsonschema.json.JsonValueString;
+import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 import com.mauriciotogneri.jsonschema.support.Regex;
 
 public class PatternAttribute implements Attribute
@@ -16,6 +16,6 @@ public class PatternAttribute implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("pattern", new JsonValueString(value.value()));
+        return new JsonField("pattern", new JsonPrimitive(value.value()));
     }
 }

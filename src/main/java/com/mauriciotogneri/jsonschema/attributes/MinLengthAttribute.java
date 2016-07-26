@@ -1,7 +1,7 @@
 package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
-import com.mauriciotogneri.jsonschema.json.JsonValueNumber;
+import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 import com.mauriciotogneri.jsonschema.support.PositiveNumber;
 
 public class MinLengthAttribute implements Attribute
@@ -16,6 +16,6 @@ public class MinLengthAttribute implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("minLength", new JsonValueNumber(value));
+        return new JsonField("minLength", new JsonPrimitive(value));
     }
 }

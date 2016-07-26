@@ -2,7 +2,7 @@ package com.mauriciotogneri.jsonschema.schemas;
 
 import com.mauriciotogneri.jsonschema.attributes.Attributes;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
-import com.mauriciotogneri.jsonschema.json.JsonValue;
+import com.mauriciotogneri.jsonschema.json.JsonElement;
 
 public class AnySchema implements AbstractSchema
 {
@@ -35,7 +35,7 @@ public class AnySchema implements AbstractSchema
     }
 
     @Override
-    public JsonValue json()
+    public JsonElement json()
     {
         return schema.json();
     }
