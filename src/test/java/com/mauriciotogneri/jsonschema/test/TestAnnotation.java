@@ -17,7 +17,7 @@ public class TestAnnotation
     @Test
     public void test() throws Exception
     {
-        Schema schema = new Schema(Person.class, true).schemaVersion();
+        Schema schema = new Schema(Person.class).schemaVersion();
         print(schema.json());
     }
 

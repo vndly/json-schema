@@ -1,9 +1,14 @@
 package com.mauriciotogneri.jsonschema.definitions;
 
+import com.mauriciotogneri.jsonschema.schemas.Schema;
 import com.mauriciotogneri.jsonschema.structures.ImmutableMap;
 import com.mauriciotogneri.jsonschema.support.ClassDef;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Definitions implements Iterable<Definition>
 {
@@ -14,11 +19,21 @@ public class Definitions implements Iterable<Definition>
         this.schemas = schemas;
     }
 
-    public Definitions(ClassDef classDef)
+    public Definitions(ClassDef rootClassDef)
     {
-        this.schemas = new ImmutableMap<>();
+        Map<String, Definition> map = new LinkedHashMap<>();
 
-        // TODO: fill the map
+        Set<ClassDef> classes = new HashSet<>();
+        rootClassDef.classes(classes);
+
+        for (ClassDef classDef : classes)
+        {
+            Definition definition = new Definition(classDef.name(), new Schema(classDef, false));
+
+            map.put(definition.name(), definition);
+        }
+
+        this.schemas = new ImmutableMap<>(map);
     }
 
     public Definitions()

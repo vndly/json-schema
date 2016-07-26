@@ -3,7 +3,9 @@ package com.mauriciotogneri.jsonschema.support;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ClassDef
 {
@@ -22,14 +24,19 @@ public class ClassDef
     public FieldDef[] fields()
     {
         Field[] fields = clazz.getDeclaredFields();
-        FieldDef[] result = new FieldDef[fields.length];
+        List<FieldDef> result = new ArrayList<>();
 
-        for (int i = 0; i < fields.length; i++)
+        for (Field field : fields)
         {
-            result[i] = new FieldDef(fields[i]);
+            FieldDef fieldDef = new FieldDef(field);
+
+            if (!fieldDef.isStatic())
+            {
+                result.add(fieldDef);
+            }
         }
 
-        return result;
+        return result.toArray(new FieldDef[result.size()]);
     }
 
     public Annotation[] annotations()
@@ -48,6 +55,26 @@ public class ClassDef
             ParameterizedType parameterizedType = (ParameterizedType) clazz.getGenericSuperclass();
 
             return new ClassDef((Class) parameterizedType.getActualTypeArguments()[0]);
+        }
+    }
+
+    public void classes(Set<ClassDef> classes)
+    {
+        if (!classes.contains(this))
+        {
+            if (isObject())
+            {
+                classes.add(this);
+
+                for (FieldDef fieldDef : fields())
+                {
+                    fieldDef.classDef().classes(classes);
+                }
+            }
+            else if (isArray())
+            {
+                componentType().classes(classes);
+            }
         }
     }
 
@@ -102,5 +129,28 @@ public class ClassDef
                 isBoolean() ||
                 isInteger() ||
                 isNumber();
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        else if (o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
+
+        ClassDef classDef = (ClassDef) o;
+
+        return clazz.equals(classDef.clazz);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return clazz.hashCode();
     }
 }

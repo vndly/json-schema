@@ -2,6 +2,7 @@ package com.mauriciotogneri.jsonschema.support;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 public class FieldDef
 {
@@ -20,6 +21,11 @@ public class FieldDef
     public ClassDef classDef()
     {
         return new ClassDef(field.getType());
+    }
+
+    public boolean isStatic()
+    {
+        return Modifier.isStatic(field.getModifiers());
     }
 
     public Annotation[] annotations()

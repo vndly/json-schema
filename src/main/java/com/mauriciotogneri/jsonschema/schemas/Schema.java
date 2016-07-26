@@ -27,8 +27,8 @@ import com.mauriciotogneri.jsonschema.attributes.TitleAttribute;
 import com.mauriciotogneri.jsonschema.attributes.UniqueItemsAttribute;
 import com.mauriciotogneri.jsonschema.definitions.Definition;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
-import com.mauriciotogneri.jsonschema.json.JsonObject;
 import com.mauriciotogneri.jsonschema.json.JsonElement;
+import com.mauriciotogneri.jsonschema.json.JsonObject;
 import com.mauriciotogneri.jsonschema.support.Annotations;
 import com.mauriciotogneri.jsonschema.support.ClassDef;
 import com.mauriciotogneri.jsonschema.support.FieldDef;
@@ -55,7 +55,7 @@ public class Schema implements AbstractSchema
 
     private Schema(ClassDef classDef, Annotations annotations, boolean useReferences)
     {
-        this(new Definitions(classDef), new Attributes(classDef, annotations, useReferences));
+        this(new Definitions(), new Attributes(classDef, annotations, useReferences));
     }
 
     public Schema(ClassDef classDef, boolean useReferences)
@@ -68,14 +68,23 @@ public class Schema implements AbstractSchema
         this(fieldDef.classDef(), new Annotations(fieldDef.annotations()), useReferences);
     }
 
-    public Schema(Class<?> clazz, boolean useReferences)
+    public Schema(Class<?> clazz)
     {
-        this(new ClassDef(clazz), useReferences);
+        ClassDef classDef = new ClassDef(clazz);
+        Annotations annotations = new Annotations(classDef.annotations());
+
+        this.definitions = new Definitions(classDef);
+        this.attributes = new Attributes(classDef, annotations, true);
     }
 
     public Schema()
     {
         this(new Definitions(), new Attributes());
+    }
+
+    public Schema attribute(Attribute attribute)
+    {
+        return new Schema(definitions, attributes.add(attribute));
     }
 
     public Schema id(String id)
