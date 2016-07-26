@@ -9,16 +9,16 @@ import com.mauriciotogneri.jsonschema.structures.ImmutableList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Required implements Attribute
+public class RequiredAttribute implements Attribute
 {
     private final ImmutableList<JsonValue> values;
 
-    public Required(String... values)
+    public RequiredAttribute(String... values)
     {
         this(Arrays.asList(values));
     }
 
-    public Required(List<String> values)
+    public RequiredAttribute(List<String> values)
     {
         this.values = new ImmutableList<>();
 

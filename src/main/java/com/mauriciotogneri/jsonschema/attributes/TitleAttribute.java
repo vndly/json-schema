@@ -2,13 +2,12 @@ package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueString;
-import com.mauriciotogneri.jsonschema.support.Regex;
 
-public class Pattern implements Attribute
+public class TitleAttribute implements Attribute
 {
-    private final Regex value;
+    private final String value;
 
-    public Pattern(Regex value)
+    public TitleAttribute(String value)
     {
         this.value = value;
     }
@@ -16,6 +15,6 @@ public class Pattern implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("pattern", new JsonValueString(value.value()));
+        return new JsonField("title", new JsonValueString(value));
     }
 }

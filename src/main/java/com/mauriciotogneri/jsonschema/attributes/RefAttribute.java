@@ -2,13 +2,12 @@ package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueString;
-import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 
-public class Type implements Attribute
+public class RefAttribute implements Attribute
 {
-    private final PrimitiveType value;
+    private final String value;
 
-    public Type(PrimitiveType value)
+    public RefAttribute(String value)
     {
         this.value = value;
     }
@@ -16,6 +15,6 @@ public class Type implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("type", new JsonValueString(value.toString()));
+        return new JsonField("$ref", new JsonValueString(value));
     }
 }

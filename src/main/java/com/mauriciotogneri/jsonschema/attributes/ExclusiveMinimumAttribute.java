@@ -3,11 +3,11 @@ package com.mauriciotogneri.jsonschema.attributes;
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueBoolean;
 
-public class ExclusiveMinimum implements Attribute
+public class ExclusiveMinimumAttribute implements Attribute
 {
     private final Boolean value;
 
-    public ExclusiveMinimum(Boolean value)
+    public ExclusiveMinimumAttribute(Boolean value)
     {
         this.value = value;
     }

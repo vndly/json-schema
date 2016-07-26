@@ -8,7 +8,7 @@ public class RootSchema implements AbstractSchema
 
     public RootSchema(AbstractSchema abstractSchema)
     {
-        this.schema = abstractSchema.schema().root();
+        this.schema = abstractSchema.schema().schemaVersion();
     }
 
     public RootSchema id(String id)

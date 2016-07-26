@@ -1,6 +1,6 @@
 package com.mauriciotogneri.jsonschema.test;
 
-import com.mauriciotogneri.jsonschema.attributes.Enum;
+import com.mauriciotogneri.jsonschema.attributes.EnumAttribute;
 import com.mauriciotogneri.jsonschema.definitions.Definition;
 import com.mauriciotogneri.jsonschema.schemas.AnySchema;
 import com.mauriciotogneri.jsonschema.schemas.ArraySchema;
@@ -29,7 +29,7 @@ public class TestSchema
                         .maxLength(10)
                         .pattern("*")
                         .format(FormatType.DATE_TIME)
-                        .enums(new Enum().withString("A").withBoolean(true).withNumber(12.3).withInteger(0)));
+                        .enums(new EnumAttribute().withString("A").withBoolean(true).withNumber(12.3).withInteger(0)));
 
         assertEquals(root.toString(), "{\"type\":\"string\",\"title\":\"Super string title\",\"description\":\"Amazing string description\",\"minLength\":1,\"maxLength\":10,\"pattern\":\"*\",\"format\":\"date-time\",\"enums\":[\"A\",true,12.3,0],\"$schema\":\"http://json-schema.org/schema#\"}");
     }

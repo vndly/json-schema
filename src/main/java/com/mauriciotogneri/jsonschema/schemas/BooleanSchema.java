@@ -1,7 +1,7 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
 import com.mauriciotogneri.jsonschema.attributes.Attributes;
-import com.mauriciotogneri.jsonschema.attributes.Type;
+import com.mauriciotogneri.jsonschema.attributes.TypeAttribute;
 import com.mauriciotogneri.jsonschema.definitions.Definition;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.json.JsonValue;
@@ -18,7 +18,7 @@ public class BooleanSchema implements AbstractSchema
 
     public BooleanSchema()
     {
-        this(new Schema(new Definitions(), new Attributes().add(new Type(PrimitiveType.BOOLEAN))));
+        this(new Schema(new Definitions(), new Attributes().add(new TypeAttribute(PrimitiveType.BOOLEAN))));
     }
 
     public BooleanSchema definition(Definition definition)

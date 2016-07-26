@@ -3,15 +3,18 @@ package com.mauriciotogneri.jsonschema.attributes;
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueString;
 
-public class SchemaVersion implements Attribute
+public class DescriptionAttribute implements Attribute
 {
-    public SchemaVersion()
+    private final String value;
+
+    public DescriptionAttribute(String value)
     {
+        this.value = value;
     }
 
     @Override
     public JsonField json()
     {
-        return new JsonField("$schema", new JsonValueString("http://json-schema.org/schema#"));
+        return new JsonField("description", new JsonValueString(value));
     }
 }

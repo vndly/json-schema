@@ -1,8 +1,8 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
 import com.mauriciotogneri.jsonschema.attributes.Attributes;
-import com.mauriciotogneri.jsonschema.attributes.Enum;
-import com.mauriciotogneri.jsonschema.attributes.Type;
+import com.mauriciotogneri.jsonschema.attributes.EnumAttribute;
+import com.mauriciotogneri.jsonschema.attributes.TypeAttribute;
 import com.mauriciotogneri.jsonschema.definitions.Definition;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.json.JsonValue;
@@ -20,7 +20,7 @@ public class StringSchema implements AbstractSchema
 
     public StringSchema()
     {
-        this(new Schema(new Definitions(), new Attributes().add(new Type(PrimitiveType.STRING))));
+        this(new Schema(new Definitions(), new Attributes().add(new TypeAttribute(PrimitiveType.STRING))));
     }
 
     public StringSchema definition(Definition definition)
@@ -58,7 +58,7 @@ public class StringSchema implements AbstractSchema
         return new StringSchema(schema.format(format));
     }
 
-    public StringSchema enums(Enum enums)
+    public StringSchema enums(EnumAttribute enums)
     {
         return new StringSchema(schema.enums(enums));
     }

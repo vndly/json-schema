@@ -1,5 +1,7 @@
 package com.mauriciotogneri.jsonschema.support;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class ClassDef
@@ -9,6 +11,30 @@ public class ClassDef
     public ClassDef(Class<?> clazz)
     {
         this.clazz = clazz;
+    }
+
+    public String name()
+    {
+        return clazz.getSimpleName();
+    }
+
+    public Annotation[] annotations()
+    {
+        return clazz.getDeclaredAnnotations();
+    }
+
+    public ClassDef componentType()
+    {
+        if (clazz.isArray())
+        {
+            return new ClassDef(clazz.getComponentType());
+        }
+        else
+        {
+            ParameterizedType parameterizedType = (ParameterizedType) clazz.getGenericSuperclass();
+
+            return new ClassDef((Class) parameterizedType.getActualTypeArguments()[0]);
+        }
     }
 
     public boolean isString()
@@ -45,5 +71,14 @@ public class ClassDef
     {
         return (clazz.isArray() ||
                 List.class.isAssignableFrom(clazz));
+    }
+
+    public boolean isObject()
+    {
+        return !isString() &&
+                !isBoolean() &&
+                !isInteger() &&
+                !isNumber() &&
+                !isArray();
     }
 }

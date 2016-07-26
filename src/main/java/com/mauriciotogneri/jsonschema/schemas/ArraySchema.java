@@ -1,7 +1,7 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
 import com.mauriciotogneri.jsonschema.attributes.Attributes;
-import com.mauriciotogneri.jsonschema.attributes.Type;
+import com.mauriciotogneri.jsonschema.attributes.TypeAttribute;
 import com.mauriciotogneri.jsonschema.definitions.Definition;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.json.JsonValue;
@@ -26,7 +26,7 @@ public class ArraySchema implements AbstractSchema
 
     public ArraySchema()
     {
-        this(new Schema(new Definitions(), new Attributes().add(new Type(PrimitiveType.ARRAY))));
+        this(new Schema(new Definitions(), new Attributes().add(new TypeAttribute(PrimitiveType.ARRAY))));
     }
 
     public ArraySchema definition(Definition definition)

@@ -1,7 +1,7 @@
 package com.mauriciotogneri.jsonschema.schemas;
 
 import com.mauriciotogneri.jsonschema.attributes.Attributes;
-import com.mauriciotogneri.jsonschema.attributes.Type;
+import com.mauriciotogneri.jsonschema.attributes.TypeAttribute;
 import com.mauriciotogneri.jsonschema.definitions.Definition;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.json.JsonValue;
@@ -22,7 +22,7 @@ public class NumberSchema implements AbstractSchema
 
     public NumberSchema()
     {
-        this(new Schema(new Definitions(), new Attributes().add(new Type(PrimitiveType.NUMBER))));
+        this(new Schema(new Definitions(), new Attributes().add(new TypeAttribute(PrimitiveType.NUMBER))));
     }
 
     public NumberSchema definition(Definition definition)

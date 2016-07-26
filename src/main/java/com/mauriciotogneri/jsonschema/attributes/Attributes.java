@@ -1,12 +1,20 @@
 package com.mauriciotogneri.jsonschema.attributes;
 
+import com.mauriciotogneri.jsonschema.annotations.Description;
+import com.mauriciotogneri.jsonschema.annotations.Id;
+import com.mauriciotogneri.jsonschema.annotations.MaxLength;
+import com.mauriciotogneri.jsonschema.annotations.MinLength;
+import com.mauriciotogneri.jsonschema.annotations.Title;
+import com.mauriciotogneri.jsonschema.schemas.Schema;
 import com.mauriciotogneri.jsonschema.structures.ImmutableMap;
+import com.mauriciotogneri.jsonschema.support.Annotations;
 import com.mauriciotogneri.jsonschema.support.ClassDef;
+import com.mauriciotogneri.jsonschema.support.PositiveNumber;
+import com.mauriciotogneri.jsonschema.support.Uri;
 import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class Attributes implements Iterable<Attribute>
 {
@@ -17,33 +25,44 @@ public class Attributes implements Iterable<Attribute>
         this.attributes = attributes;
     }
 
-    public Attributes(ClassDef classDef)
+    public Attributes(ClassDef classDef, Annotations annotations)
     {
-        Map<Class<?>, Attribute> attributes = new LinkedHashMap<>();
+        AttributeMap attributes = new AttributeMap();
 
-        if (classDef.isString())
+        attributes.add(new TypeAttribute(primitiveType(classDef)));
+
+        if (annotations.has(Title.class))
         {
-            attributes.put(Type.class, new Type(PrimitiveType.STRING));
+            attributes.add(new TitleAttribute(annotations.annotation(Title.class).value()));
         }
-        else if (classDef.isBoolean())
+
+        if (annotations.has(Description.class))
         {
-            attributes.put(Type.class, new Type(PrimitiveType.BOOLEAN));
+            attributes.add(new DescriptionAttribute(annotations.annotation(Description.class).value()));
         }
-        else if (classDef.isInteger())
+
+        if (annotations.has(Id.class))
         {
-            attributes.put(Type.class, new Type(PrimitiveType.INTEGER));
+            attributes.add(new IdAttribute(new Uri(annotations.annotation(Id.class).value())));
         }
-        else if (classDef.isNumber())
+
+        if (annotations.has(MinLength.class))
         {
-            attributes.put(Type.class, new Type(PrimitiveType.NUMBER));
+            attributes.add(new MinLengthAttribute(new PositiveNumber(annotations.annotation(MinLength.class).value())));
         }
-        else if (classDef.isArray())
+
+        if (annotations.has(MaxLength.class))
         {
-            attributes.put(Type.class, new Type(PrimitiveType.ARRAY));
+            attributes.add(new MaxLengthAttribute(new PositiveNumber(annotations.annotation(MaxLength.class).value())));
         }
-        else
+
+        if (classDef.isArray())
         {
-            attributes.put(Type.class, new Type(PrimitiveType.OBJECT));
+            attributes.add(new ItemsAttribute(new Schema(classDef.componentType())));
+        }
+        else if (classDef.isObject())
+        {
+            attributes.add(new RefAttribute(classDef.name()));
         }
 
         this.attributes = new ImmutableMap<>(attributes);
@@ -59,9 +78,45 @@ public class Attributes implements Iterable<Attribute>
         return new Attributes(attributes.put(attribute.getClass(), attribute));
     }
 
+    private PrimitiveType primitiveType(ClassDef classDef)
+    {
+        if (classDef.isString())
+        {
+            return PrimitiveType.STRING;
+        }
+        else if (classDef.isBoolean())
+        {
+            return PrimitiveType.BOOLEAN;
+        }
+        else if (classDef.isInteger())
+        {
+            return PrimitiveType.INTEGER;
+        }
+        else if (classDef.isNumber())
+        {
+            return PrimitiveType.NUMBER;
+        }
+        else if (classDef.isArray())
+        {
+            return PrimitiveType.ARRAY;
+        }
+        else
+        {
+            return PrimitiveType.OBJECT;
+        }
+    }
+
     @Override
     public Iterator<Attribute> iterator()
     {
         return attributes.iterator();
+    }
+
+    private static class AttributeMap extends LinkedHashMap<Class<?>, Attribute>
+    {
+        public void add(Attribute attribute)
+        {
+            put(attribute.getClass(), attribute);
+        }
     }
 }

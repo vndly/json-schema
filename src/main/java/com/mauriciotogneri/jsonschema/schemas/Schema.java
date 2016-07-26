@@ -2,30 +2,33 @@ package com.mauriciotogneri.jsonschema.schemas;
 
 import com.mauriciotogneri.jsonschema.attributes.Attribute;
 import com.mauriciotogneri.jsonschema.attributes.Attributes;
-import com.mauriciotogneri.jsonschema.attributes.Description;
-import com.mauriciotogneri.jsonschema.attributes.Enum;
-import com.mauriciotogneri.jsonschema.attributes.ExclusiveMaximum;
-import com.mauriciotogneri.jsonschema.attributes.ExclusiveMinimum;
-import com.mauriciotogneri.jsonschema.attributes.Format;
-import com.mauriciotogneri.jsonschema.attributes.Id;
-import com.mauriciotogneri.jsonschema.attributes.MaxItems;
-import com.mauriciotogneri.jsonschema.attributes.MaxLength;
-import com.mauriciotogneri.jsonschema.attributes.MaxProperties;
-import com.mauriciotogneri.jsonschema.attributes.Maximum;
-import com.mauriciotogneri.jsonschema.attributes.MinIProperties;
-import com.mauriciotogneri.jsonschema.attributes.MinItems;
-import com.mauriciotogneri.jsonschema.attributes.MinLength;
-import com.mauriciotogneri.jsonschema.attributes.Minimum;
-import com.mauriciotogneri.jsonschema.attributes.MultipleOf;
-import com.mauriciotogneri.jsonschema.attributes.Pattern;
-import com.mauriciotogneri.jsonschema.attributes.Required;
-import com.mauriciotogneri.jsonschema.attributes.SchemaVersion;
-import com.mauriciotogneri.jsonschema.attributes.Title;
-import com.mauriciotogneri.jsonschema.attributes.UniqueItems;
+import com.mauriciotogneri.jsonschema.attributes.DescriptionAttribute;
+import com.mauriciotogneri.jsonschema.attributes.EnumAttribute;
+import com.mauriciotogneri.jsonschema.attributes.ExclusiveMaximumAttribute;
+import com.mauriciotogneri.jsonschema.attributes.ExclusiveMinimumAttribute;
+import com.mauriciotogneri.jsonschema.attributes.FormatAttribute;
+import com.mauriciotogneri.jsonschema.attributes.IdAttribute;
+import com.mauriciotogneri.jsonschema.attributes.ItemsAttribute;
+import com.mauriciotogneri.jsonschema.attributes.MaxItemsAttribute;
+import com.mauriciotogneri.jsonschema.attributes.MaxLengthAttribute;
+import com.mauriciotogneri.jsonschema.attributes.MaxPropertiesAttribute;
+import com.mauriciotogneri.jsonschema.attributes.MaximumAttribute;
+import com.mauriciotogneri.jsonschema.attributes.MinPropertiesAttribute;
+import com.mauriciotogneri.jsonschema.attributes.MinItemsAttribute;
+import com.mauriciotogneri.jsonschema.attributes.MinLengthAttribute;
+import com.mauriciotogneri.jsonschema.attributes.MinimumAttribute;
+import com.mauriciotogneri.jsonschema.attributes.MultipleOfAttribute;
+import com.mauriciotogneri.jsonschema.attributes.PatternAttribute;
+import com.mauriciotogneri.jsonschema.attributes.RefAttribute;
+import com.mauriciotogneri.jsonschema.attributes.RequiredAttribute;
+import com.mauriciotogneri.jsonschema.attributes.SchemaAttribute;
+import com.mauriciotogneri.jsonschema.attributes.TitleAttribute;
+import com.mauriciotogneri.jsonschema.attributes.UniqueItemsAttribute;
 import com.mauriciotogneri.jsonschema.definitions.Definition;
 import com.mauriciotogneri.jsonschema.definitions.Definitions;
 import com.mauriciotogneri.jsonschema.json.JsonObject;
 import com.mauriciotogneri.jsonschema.json.JsonValue;
+import com.mauriciotogneri.jsonschema.support.Annotations;
 import com.mauriciotogneri.jsonschema.support.ClassDef;
 import com.mauriciotogneri.jsonschema.support.PositiveNumber;
 import com.mauriciotogneri.jsonschema.support.Regex;
@@ -47,9 +50,14 @@ public class Schema implements AbstractSchema
         this.attributes = attributes;
     }
 
+    public Schema(ClassDef classDef)
+    {
+        this(new Definitions(classDef), new Attributes(classDef, new Annotations(classDef)).add(new SchemaAttribute()));
+    }
+
     public Schema(Class<?> clazz)
     {
-        this(new Definitions(new ClassDef(clazz)), new Attributes(new ClassDef(clazz)).add(new SchemaVersion()));
+        this(new ClassDef(clazz));
     }
 
     public Schema()
@@ -59,12 +67,12 @@ public class Schema implements AbstractSchema
 
     public Schema id(String id)
     {
-        return new Schema(definitions, attributes.add(new Id(new Uri(id))));
+        return new Schema(definitions, attributes.add(new IdAttribute(new Uri(id))));
     }
 
-    public Schema root()
+    public Schema schemaVersion()
     {
-        return new Schema(definitions, attributes.add(new SchemaVersion()));
+        return new Schema(definitions, attributes.add(new SchemaAttribute()));
     }
 
     public Schema definition(Definition definition)
@@ -74,112 +82,122 @@ public class Schema implements AbstractSchema
 
     public Schema title(String title)
     {
-        return new Schema(definitions, attributes.add(new Title(title)));
+        return new Schema(definitions, attributes.add(new TitleAttribute(title)));
     }
 
     public Schema description(String description)
     {
-        return new Schema(definitions, attributes.add(new Description(description)));
+        return new Schema(definitions, attributes.add(new DescriptionAttribute(description)));
+    }
+
+    public Schema ref(String ref)
+    {
+        return new Schema(definitions, attributes.add(new RefAttribute(ref)));
+    }
+
+    public Schema items(Schema... schemas)
+    {
+        return new Schema(definitions, attributes.add(new ItemsAttribute(schemas)));
     }
 
     public Schema minLength(long minLength)
     {
-        return new Schema(definitions, attributes.add(new MinLength(new PositiveNumber(minLength))));
+        return new Schema(definitions, attributes.add(new MinLengthAttribute(new PositiveNumber(minLength))));
     }
 
     public Schema maxLength(long maxLength)
     {
-        return new Schema(definitions, attributes.add(new MaxLength(new PositiveNumber(maxLength))));
+        return new Schema(definitions, attributes.add(new MaxLengthAttribute(new PositiveNumber(maxLength))));
     }
 
     public Schema pattern(String pattern)
     {
-        return new Schema(definitions, attributes.add(new Pattern(new Regex(pattern))));
+        return new Schema(definitions, attributes.add(new PatternAttribute(new Regex(pattern))));
     }
 
     public Schema format(FormatType format)
     {
-        return new Schema(definitions, attributes.add(new Format(format)));
+        return new Schema(definitions, attributes.add(new FormatAttribute(format)));
     }
 
-    public Schema enums(Enum enums)
+    public Schema enums(EnumAttribute enums)
     {
         return new Schema(definitions, attributes.add(enums));
     }
 
     public Schema multipleOf(long value)
     {
-        return new Schema(definitions, attributes.add(new MultipleOf(new PositiveNumber(value))));
+        return new Schema(definitions, attributes.add(new MultipleOfAttribute(new PositiveNumber(value))));
     }
 
     public Schema multipleOf(double value)
     {
-        return new Schema(definitions, attributes.add(new MultipleOf(new PositiveNumber(value))));
+        return new Schema(definitions, attributes.add(new MultipleOfAttribute(new PositiveNumber(value))));
     }
 
     public Schema minimum(long value)
     {
-        return new Schema(definitions, attributes.add(new Minimum<>(value)));
+        return new Schema(definitions, attributes.add(new MinimumAttribute<>(value)));
     }
 
     public Schema minimum(double value)
     {
-        return new Schema(definitions, attributes.add(new Minimum<>(value)));
+        return new Schema(definitions, attributes.add(new MinimumAttribute<>(value)));
     }
 
     public Schema maximum(long value)
     {
-        return new Schema(definitions, attributes.add(new Maximum<>(value)));
+        return new Schema(definitions, attributes.add(new MaximumAttribute<>(value)));
     }
 
     public Schema maximum(double value)
     {
-        return new Schema(definitions, attributes.add(new Maximum<>(value)));
+        return new Schema(definitions, attributes.add(new MaximumAttribute<>(value)));
     }
 
     public Schema exclusiveMinimum(boolean value)
     {
-        return new Schema(definitions, attributes.add(new ExclusiveMinimum(value)));
+        return new Schema(definitions, attributes.add(new ExclusiveMinimumAttribute(value)));
     }
 
     public Schema exclusiveMaximum(boolean value)
     {
-        return new Schema(definitions, attributes.add(new ExclusiveMaximum(value)));
+        return new Schema(definitions, attributes.add(new ExclusiveMaximumAttribute(value)));
     }
 
     public Schema minItems(long minItems)
     {
-        return new Schema(definitions, attributes.add(new MinItems(new PositiveNumber(minItems))));
+        return new Schema(definitions, attributes.add(new MinItemsAttribute(new PositiveNumber(minItems))));
     }
 
     public Schema maxItems(long maxItems)
     {
-        return new Schema(definitions, attributes.add(new MaxItems(new PositiveNumber(maxItems))));
+        return new Schema(definitions, attributes.add(new MaxItemsAttribute(new PositiveNumber(maxItems))));
     }
 
     public Schema uniqueItems(boolean value)
     {
-        return new Schema(definitions, attributes.add(new UniqueItems(value)));
+        return new Schema(definitions, attributes.add(new UniqueItemsAttribute(value)));
     }
 
     public Schema minIProperties(long minIProperties)
     {
-        return new Schema(definitions, attributes.add(new MinIProperties(new PositiveNumber(minIProperties))));
+        return new Schema(definitions, attributes.add(new MinPropertiesAttribute(new PositiveNumber(minIProperties))));
     }
 
     public Schema maxProperties(long maxProperties)
     {
-        return new Schema(definitions, attributes.add(new MaxProperties(new PositiveNumber(maxProperties))));
+        return new Schema(definitions, attributes.add(new MaxPropertiesAttribute(new PositiveNumber(maxProperties))));
     }
 
     public Schema required(String... values)
     {
-        return new Schema(definitions, attributes.add(new Required(values)));
+        return new Schema(definitions, attributes.add(new RequiredAttribute(values)));
     }
 
     public Schema required(List<String> values)
     {
-        return new Schema(definitions, attributes.add(new Required(values)));
+        return new Schema(definitions, attributes.add(new RequiredAttribute(values)));
     }
 
     @Override

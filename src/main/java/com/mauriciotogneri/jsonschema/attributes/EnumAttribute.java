@@ -8,7 +8,7 @@ import com.mauriciotogneri.jsonschema.json.JsonValueNumber;
 import com.mauriciotogneri.jsonschema.json.JsonValueString;
 import com.mauriciotogneri.jsonschema.structures.ImmutableList;
 
-public class Enum implements Attribute
+public class EnumAttribute implements Attribute
 {
     private final ImmutableList<JsonValue> values;
 
@@ -16,34 +16,34 @@ public class Enum implements Attribute
     // TODO: check that elements are unique
     // TODO: check that size >= 1
 
-    private Enum(ImmutableList<JsonValue> values)
+    private EnumAttribute(ImmutableList<JsonValue> values)
     {
         this.values = values;
     }
 
-    public Enum()
+    public EnumAttribute()
     {
         this.values = new ImmutableList<>();
     }
 
-    public Enum withString(String value)
+    public EnumAttribute withString(String value)
     {
-        return new Enum(values.add(new JsonValueString(value)));
+        return new EnumAttribute(values.add(new JsonValueString(value)));
     }
 
-    public Enum withInteger(long value)
+    public EnumAttribute withInteger(long value)
     {
-        return new Enum(values.add(new JsonValueNumber(value)));
+        return new EnumAttribute(values.add(new JsonValueNumber(value)));
     }
 
-    public Enum withNumber(double value)
+    public EnumAttribute withNumber(double value)
     {
-        return new Enum(values.add(new JsonValueNumber(value)));
+        return new EnumAttribute(values.add(new JsonValueNumber(value)));
     }
 
-    public Enum withBoolean(boolean value)
+    public EnumAttribute withBoolean(boolean value)
     {
-        return new Enum(values.add(new JsonValueBoolean(value)));
+        return new EnumAttribute(values.add(new JsonValueBoolean(value)));
     }
 
     @Override

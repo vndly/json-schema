@@ -4,11 +4,11 @@ import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueNumber;
 import com.mauriciotogneri.jsonschema.support.PositiveNumber;
 
-public class MaxItems implements Attribute
+public class MaxPropertiesAttribute implements Attribute
 {
     private final PositiveNumber value;
 
-    public MaxItems(PositiveNumber value)
+    public MaxPropertiesAttribute(PositiveNumber value)
     {
         this.value = value;
     }
@@ -16,6 +16,6 @@ public class MaxItems implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("maxItems", new JsonValueNumber(value));
+        return new JsonField("maxProperties", new JsonValueNumber(value));
     }
 }

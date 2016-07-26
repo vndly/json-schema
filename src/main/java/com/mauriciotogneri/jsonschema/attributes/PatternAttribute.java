@@ -2,13 +2,13 @@ package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueString;
-import com.mauriciotogneri.jsonschema.types.FormatType;
+import com.mauriciotogneri.jsonschema.support.Regex;
 
-public class Format implements Attribute
+public class PatternAttribute implements Attribute
 {
-    private final FormatType value;
+    private final Regex value;
 
-    public Format(FormatType value)
+    public PatternAttribute(Regex value)
     {
         this.value = value;
     }
@@ -16,6 +16,6 @@ public class Format implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("format", new JsonValueString(value.toString()));
+        return new JsonField("pattern", new JsonValueString(value.value()));
     }
 }

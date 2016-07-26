@@ -2,13 +2,12 @@ package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueNumber;
-import com.mauriciotogneri.jsonschema.support.PositiveNumber;
 
-public class MaxLength implements Attribute
+public class MinimumAttribute<N extends Number> implements Attribute
 {
-    private final PositiveNumber value;
+    private final Number value;
 
-    public MaxLength(PositiveNumber value)
+    public MinimumAttribute(N value)
     {
         this.value = value;
     }
@@ -16,6 +15,6 @@ public class MaxLength implements Attribute
     @Override
     public JsonField json()
     {
-        return new JsonField("maxLength", new JsonValueNumber(value));
+        return new JsonField("minimum", new JsonValueNumber(value));
     }
 }

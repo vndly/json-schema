@@ -3,11 +3,11 @@ package com.mauriciotogneri.jsonschema.attributes;
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueBoolean;
 
-public class ExclusiveMaximum implements Attribute
+public class ExclusiveMaximumAttribute implements Attribute
 {
     private final Boolean value;
 
-    public ExclusiveMaximum(Boolean value)
+    public ExclusiveMaximumAttribute(Boolean value)
     {
         this.value = value;
     }

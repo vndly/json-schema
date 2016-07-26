@@ -4,11 +4,11 @@ import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonValueString;
 import com.mauriciotogneri.jsonschema.support.Uri;
 
-public class Id implements Attribute
+public class IdAttribute implements Attribute
 {
     private final Uri value;
 
-    public Id(Uri value)
+    public IdAttribute(Uri value)
     {
         this.value = value;
     }
