@@ -4,11 +4,19 @@ import com.mauriciotogneri.jsonschema.json.JsonArray;
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.schemas.Schema;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ItemsAttribute implements Attribute
 {
-    private final Schema[] schemas;
+    private final List<Schema> schemas;
 
     public ItemsAttribute(Schema... schemas)
+    {
+        this(Arrays.asList(schemas));
+    }
+
+    public ItemsAttribute(List<Schema> schemas)
     {
         this.schemas = schemas;
     }
@@ -16,9 +24,9 @@ public class ItemsAttribute implements Attribute
     @Override
     public JsonField json()
     {
-        if (schemas.length == 1)
+        if (schemas.size() == 1)
         {
-            return new JsonField("items", schemas[0].json());
+            return new JsonField("items", schemas.get(0).json());
         }
         else
         {

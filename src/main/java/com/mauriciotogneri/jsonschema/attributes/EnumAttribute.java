@@ -24,6 +24,18 @@ public class EnumAttribute implements Attribute
         this.values = new ImmutableList<>();
     }
 
+    public EnumAttribute withClass(Class<? extends Enum> clazz)
+    {
+        ImmutableList<JsonElement> newValues = values;
+
+        for (Object element : clazz.getEnumConstants())
+        {
+            newValues = newValues.add(new JsonPrimitive(element.toString()));
+        }
+
+        return new EnumAttribute(newValues);
+    }
+
     public EnumAttribute withString(String value)
     {
         return new EnumAttribute(values.add(new JsonPrimitive(value)));

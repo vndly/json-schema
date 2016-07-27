@@ -1,7 +1,12 @@
 package com.mauriciotogneri.jsonschema.attributes;
 
 import com.mauriciotogneri.jsonschema.annotations.Description;
+import com.mauriciotogneri.jsonschema.annotations.Enum;
+import com.mauriciotogneri.jsonschema.annotations.ExclusiveMaximum;
+import com.mauriciotogneri.jsonschema.annotations.ExclusiveMinimum;
+import com.mauriciotogneri.jsonschema.annotations.Format;
 import com.mauriciotogneri.jsonschema.annotations.Id;
+import com.mauriciotogneri.jsonschema.annotations.Items;
 import com.mauriciotogneri.jsonschema.annotations.MaxLength;
 import com.mauriciotogneri.jsonschema.annotations.MinLength;
 import com.mauriciotogneri.jsonschema.annotations.Title;
@@ -15,8 +20,10 @@ import com.mauriciotogneri.jsonschema.support.Property;
 import com.mauriciotogneri.jsonschema.support.Uri;
 import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public class Attributes implements Iterable<Attribute>
 {
@@ -50,6 +57,11 @@ public class Attributes implements Iterable<Attribute>
                 attributes.add(new IdAttribute(new Uri(annotations.annotation(Id.class).value())));
             }
 
+            if (annotations.has(Enum.class))
+            {
+                attributes.add(new EnumAttribute().withClass(annotations.annotation(Enum.class).value()));
+            }
+
             if (annotations.has(MinLength.class))
             {
                 attributes.add(new MinLengthAttribute(new PositiveNumber(annotations.annotation(MinLength.class).value())));
@@ -58,6 +70,33 @@ public class Attributes implements Iterable<Attribute>
             if (annotations.has(MaxLength.class))
             {
                 attributes.add(new MaxLengthAttribute(new PositiveNumber(annotations.annotation(MaxLength.class).value())));
+            }
+
+            if (annotations.has(ExclusiveMaximum.class))
+            {
+                attributes.add(new ExclusiveMaximumAttribute(annotations.annotation(ExclusiveMaximum.class).value()));
+            }
+
+            if (annotations.has(ExclusiveMinimum.class))
+            {
+                attributes.add(new ExclusiveMinimumAttribute(annotations.annotation(ExclusiveMinimum.class).value()));
+            }
+
+            if (annotations.has(Format.class))
+            {
+                attributes.add(new FormatAttribute(annotations.annotation(Format.class).value()));
+            }
+
+            if (annotations.has(Items.class))
+            {
+                List<Schema> schemas = new ArrayList<>();
+
+                for (Class clazz : annotations.annotation(Items.class).value())
+                {
+                    schemas.add(new Schema(clazz));
+                }
+
+                attributes.add(new ItemsAttribute(schemas));
             }
         }
 
