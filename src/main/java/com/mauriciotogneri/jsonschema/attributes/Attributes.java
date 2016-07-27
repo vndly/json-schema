@@ -7,8 +7,14 @@ import com.mauriciotogneri.jsonschema.annotations.ExclusiveMinimum;
 import com.mauriciotogneri.jsonschema.annotations.Format;
 import com.mauriciotogneri.jsonschema.annotations.Id;
 import com.mauriciotogneri.jsonschema.annotations.Items;
+import com.mauriciotogneri.jsonschema.annotations.MaxItems;
 import com.mauriciotogneri.jsonschema.annotations.MaxLength;
+import com.mauriciotogneri.jsonschema.annotations.MaxProperties;
+import com.mauriciotogneri.jsonschema.annotations.Maximum;
+import com.mauriciotogneri.jsonschema.annotations.MinItems;
 import com.mauriciotogneri.jsonschema.annotations.MinLength;
+import com.mauriciotogneri.jsonschema.annotations.MinProperties;
+import com.mauriciotogneri.jsonschema.annotations.Minimum;
 import com.mauriciotogneri.jsonschema.annotations.Title;
 import com.mauriciotogneri.jsonschema.schemas.Schema;
 import com.mauriciotogneri.jsonschema.structures.ImmutableMap;
@@ -72,14 +78,14 @@ public class Attributes implements Iterable<Attribute>
                 attributes.add(new MaxLengthAttribute(new PositiveNumber(annotations.annotation(MaxLength.class).value())));
             }
 
-            if (annotations.has(ExclusiveMaximum.class))
-            {
-                attributes.add(new ExclusiveMaximumAttribute(annotations.annotation(ExclusiveMaximum.class).value()));
-            }
-
             if (annotations.has(ExclusiveMinimum.class))
             {
                 attributes.add(new ExclusiveMinimumAttribute(annotations.annotation(ExclusiveMinimum.class).value()));
+            }
+
+            if (annotations.has(ExclusiveMaximum.class))
+            {
+                attributes.add(new ExclusiveMaximumAttribute(annotations.annotation(ExclusiveMaximum.class).value()));
             }
 
             if (annotations.has(Format.class))
@@ -97,6 +103,36 @@ public class Attributes implements Iterable<Attribute>
                 }
 
                 attributes.add(new ItemsAttribute(schemas));
+            }
+
+            if (annotations.has(Minimum.class))
+            {
+                attributes.add(new MinimumAttribute(annotations.annotation(Minimum.class).value()));
+            }
+
+            if (annotations.has(Maximum.class))
+            {
+                attributes.add(new MaximumAttribute(annotations.annotation(Maximum.class).value()));
+            }
+
+            if (annotations.has(MinItems.class))
+            {
+                attributes.add(new MinItemsAttribute(new PositiveNumber(annotations.annotation(MinItems.class).value())));
+            }
+
+            if (annotations.has(MaxItems.class))
+            {
+                attributes.add(new MaxItemsAttribute(new PositiveNumber(annotations.annotation(MaxItems.class).value())));
+            }
+
+            if (annotations.has(MinProperties.class))
+            {
+                attributes.add(new MinPropertiesAttribute(new PositiveNumber(annotations.annotation(MinProperties.class).value())));
+            }
+
+            if (annotations.has(MaxProperties.class))
+            {
+                attributes.add(new MaxPropertiesAttribute(new PositiveNumber(annotations.annotation(MaxProperties.class).value())));
             }
         }
 

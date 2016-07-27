@@ -3,11 +3,11 @@ package com.mauriciotogneri.jsonschema.attributes;
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 
-public class MinimumAttribute<N extends Number> implements Attribute
+public class MinimumAttribute implements Attribute
 {
     private final Number value;
 
-    public MinimumAttribute(N value)
+    public MinimumAttribute(Number value)
     {
         this.value = value;
     }

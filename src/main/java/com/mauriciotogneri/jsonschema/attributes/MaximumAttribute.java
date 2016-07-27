@@ -3,11 +3,11 @@ package com.mauriciotogneri.jsonschema.attributes;
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 
-public class MaximumAttribute<N extends Number> implements Attribute
+public class MaximumAttribute implements Attribute
 {
     private final Number value;
 
-    public MaximumAttribute(N value)
+    public MaximumAttribute(Number value)
     {
         this.value = value;
     }

@@ -164,22 +164,22 @@ public class Schema implements AbstractSchema
 
     public Schema minimum(long value)
     {
-        return new Schema(definitions, attributes.add(new MinimumAttribute<>(value)));
+        return new Schema(definitions, attributes.add(new MinimumAttribute(value)));
     }
 
     public Schema minimum(double value)
     {
-        return new Schema(definitions, attributes.add(new MinimumAttribute<>(value)));
+        return new Schema(definitions, attributes.add(new MinimumAttribute(value)));
     }
 
     public Schema maximum(long value)
     {
-        return new Schema(definitions, attributes.add(new MaximumAttribute<>(value)));
+        return new Schema(definitions, attributes.add(new MaximumAttribute(value)));
     }
 
     public Schema maximum(double value)
     {
-        return new Schema(definitions, attributes.add(new MaximumAttribute<>(value)));
+        return new Schema(definitions, attributes.add(new MaximumAttribute(value)));
     }
 
     public Schema exclusiveMinimum(boolean value)
