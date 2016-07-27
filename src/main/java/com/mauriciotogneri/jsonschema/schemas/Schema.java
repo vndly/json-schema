@@ -20,7 +20,7 @@ import com.mauriciotogneri.jsonschema.attributes.MinimumAttribute;
 import com.mauriciotogneri.jsonschema.attributes.MultipleOfAttribute;
 import com.mauriciotogneri.jsonschema.attributes.PatternAttribute;
 import com.mauriciotogneri.jsonschema.attributes.PropertiesAttribute;
-import com.mauriciotogneri.jsonschema.attributes.RefAttribute;
+import com.mauriciotogneri.jsonschema.attributes.ReferenceAttribute;
 import com.mauriciotogneri.jsonschema.attributes.RequiredAttribute;
 import com.mauriciotogneri.jsonschema.attributes.SchemaAttribute;
 import com.mauriciotogneri.jsonschema.attributes.TitleAttribute;
@@ -112,9 +112,9 @@ public class Schema implements AbstractSchema
         return new Schema(definitions, attributes.add(new DescriptionAttribute(description)));
     }
 
-    public Schema ref(String ref)
+    public Schema reference(String ref)
     {
-        return new Schema(definitions, attributes.add(new RefAttribute(ref)));
+        return new Schema(definitions, attributes.add(new ReferenceAttribute(ref)));
     }
 
     public Schema properties(Property... properties)

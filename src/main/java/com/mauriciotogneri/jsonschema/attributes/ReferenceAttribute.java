@@ -3,11 +3,11 @@ package com.mauriciotogneri.jsonschema.attributes;
 import com.mauriciotogneri.jsonschema.json.JsonField;
 import com.mauriciotogneri.jsonschema.json.JsonPrimitive;
 
-public class RefAttribute implements Attribute
+public class ReferenceAttribute implements Attribute
 {
     private final String ref;
 
-    public RefAttribute(String ref)
+    public ReferenceAttribute(String ref)
     {
         this.ref = ref;
     }
@@ -18,8 +18,8 @@ public class RefAttribute implements Attribute
         return new JsonField("$ref", new JsonPrimitive(ref));
     }
 
-    public static RefAttribute fromDefinitions(String ref)
+    public static ReferenceAttribute fromDefinitions(String ref)
     {
-        return new RefAttribute(String.format("#/definitions/%s", ref));
+        return new ReferenceAttribute(String.format("#/definitions/%s", ref));
     }
 }

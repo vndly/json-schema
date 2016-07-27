@@ -15,7 +15,13 @@ import com.mauriciotogneri.jsonschema.annotations.MinItems;
 import com.mauriciotogneri.jsonschema.annotations.MinLength;
 import com.mauriciotogneri.jsonschema.annotations.MinProperties;
 import com.mauriciotogneri.jsonschema.annotations.Minimum;
+import com.mauriciotogneri.jsonschema.annotations.MultipleOf;
+import com.mauriciotogneri.jsonschema.annotations.Pattern;
+import com.mauriciotogneri.jsonschema.annotations.Reference;
+import com.mauriciotogneri.jsonschema.annotations.Required;
 import com.mauriciotogneri.jsonschema.annotations.Title;
+import com.mauriciotogneri.jsonschema.annotations.Type;
+import com.mauriciotogneri.jsonschema.annotations.UniqueItems;
 import com.mauriciotogneri.jsonschema.schemas.Schema;
 import com.mauriciotogneri.jsonschema.structures.ImmutableMap;
 import com.mauriciotogneri.jsonschema.support.Annotations;
@@ -23,6 +29,7 @@ import com.mauriciotogneri.jsonschema.support.ClassDef;
 import com.mauriciotogneri.jsonschema.support.FieldDef;
 import com.mauriciotogneri.jsonschema.support.PositiveNumber;
 import com.mauriciotogneri.jsonschema.support.Property;
+import com.mauriciotogneri.jsonschema.support.Regex;
 import com.mauriciotogneri.jsonschema.support.Uri;
 import com.mauriciotogneri.jsonschema.types.PrimitiveType;
 
@@ -68,6 +75,11 @@ public class Attributes implements Iterable<Attribute>
                 attributes.add(new EnumAttribute().withClass(annotations.annotation(Enum.class).value()));
             }
 
+            if (annotations.has(Type.class))
+            {
+                attributes.add(new TypeAttribute(annotations.annotation(Type.class).value()));
+            }
+
             if (annotations.has(MinLength.class))
             {
                 attributes.add(new MinLengthAttribute(new PositiveNumber(annotations.annotation(MinLength.class).value())));
@@ -93,6 +105,7 @@ public class Attributes implements Iterable<Attribute>
                 attributes.add(new FormatAttribute(annotations.annotation(Format.class).value()));
             }
 
+            // TODO: is it really needed?
             if (annotations.has(Items.class))
             {
                 List<Schema> schemas = new ArrayList<>();
@@ -134,6 +147,31 @@ public class Attributes implements Iterable<Attribute>
             {
                 attributes.add(new MaxPropertiesAttribute(new PositiveNumber(annotations.annotation(MaxProperties.class).value())));
             }
+
+            if (annotations.has(MultipleOf.class))
+            {
+                attributes.add(new MultipleOfAttribute(new PositiveNumber(annotations.annotation(MultipleOf.class).value())));
+            }
+
+            if (annotations.has(Pattern.class))
+            {
+                attributes.add(new PatternAttribute(new Regex(annotations.annotation(Pattern.class).value())));
+            }
+
+            if (annotations.has(Reference.class))
+            {
+                attributes.add(new ReferenceAttribute(annotations.annotation(Reference.class).value()));
+            }
+
+            if (annotations.has(Required.class))
+            {
+                attributes.add(new RequiredAttribute(annotations.annotation(Required.class).value()));
+            }
+
+            if (annotations.has(UniqueItems.class))
+            {
+                attributes.add(new UniqueItemsAttribute(annotations.annotation(UniqueItems.class).value()));
+            }
         }
 
         if (classDef.isArray())
@@ -144,7 +182,7 @@ public class Attributes implements Iterable<Attribute>
         {
             if (useReferences)
             {
-                attributes.add(RefAttribute.fromDefinitions(classDef.name()));
+                attributes.add(ReferenceAttribute.fromDefinitions(classDef.name()));
             }
             else
             {
