@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RequiredAttribute implements Attribute
 {
-    private final ImmutableList<JsonElement> values;
+    private final List<String> values;
 
     public RequiredAttribute(String... values)
     {
@@ -20,17 +20,24 @@ public class RequiredAttribute implements Attribute
 
     public RequiredAttribute(List<String> values)
     {
-        this.values = new ImmutableList<>();
-
-        for (String value : values)
+        if (values.isEmpty())
         {
-            this.values.add(new JsonPrimitive(value));
+            throw new IllegalArgumentException("List of required properties cannot be empty");
         }
+
+        this.values = values;
     }
 
     @Override
     public JsonField json()
     {
-        return new JsonField("required", new JsonArray(values));
+        ImmutableList<JsonElement> list = new ImmutableList<>();
+
+        for (String value : values)
+        {
+            list = list.add(new JsonPrimitive(value));
+        }
+
+        return new JsonField("required", new JsonArray(list));
     }
 }

@@ -18,6 +18,11 @@ public class ItemsAttribute implements Attribute
 
     public ItemsAttribute(List<Schema> schemas)
     {
+        if (schemas.isEmpty())
+        {
+            throw new IllegalArgumentException("List of schemas cannot be empty");
+        }
+
         this.schemas = schemas;
     }
 

@@ -27,21 +27,6 @@ public class ImmutableList<E> implements Iterable<E>
         return new ImmutableList<>(newList);
     }
 
-    public int size()
-    {
-        return list.size();
-    }
-
-    public E get(int position)
-    {
-        return list.get(position);
-    }
-
-    public boolean contains(E element)
-    {
-        return list.contains(element);
-    }
-
     @Override
     public Iterator<E> iterator()
     {
